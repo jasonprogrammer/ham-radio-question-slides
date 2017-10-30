@@ -19,6 +19,8 @@ Absolutely! Just grab the markdown file (`dist/hamslides.md`) and use [Cleaver](
 
 There is a JSON file in this repo (`dist/questions.json`) containing some of the question data. Feel free to use it to generate other slides! I created the parser pretty quickly, so no guarantees that everything is perfect.
 
+The [HamStudy.org](https://hamstudy.org/) support team has a much better (more detailed) set of JSON files with the questions. Feel free to email them for details.
+
 ## What is the purpose of each file in the repo?
 
 `build.sh` - Commands used to parse the input file (`questions_parse.txt`) and build the markdown (`hamslides.md`) slides.  
