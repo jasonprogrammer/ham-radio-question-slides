@@ -4,7 +4,7 @@ The goal of this project is to create web slides for each of the possible questi
 
 ## Are the slides online?
 
-[Yes, they're available here](https://jasonprogrammer.github.io/hamslides/).
+[Yes, they're available here](https://jasonprogrammer.github.io/hamslides/tech-questions.html).
 
 ## What are the steps involved in creating the slides?
 
