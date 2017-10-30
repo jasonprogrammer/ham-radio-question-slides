@@ -1,15 +1,15 @@
 # Ham Radio Slides
 
-The goal of this project is to create web slides for each of the possible questions that could appear on the Ham Radio Technician test.
+The goal of this project is to create web slides for each of the possible questions that could appear on the Ham Radio Technician test. Once the basic set of slides is created, the Markdown slides can be hand-modified to add additional links, images, and other helpful content.
+
+## Are the slides online?
+
+[Yes, they're available here](https://jasonprogrammer.github.io/hamslides/).
 
 ## What are the steps involved in creating the slides?
 
 1. Parse a somewhat hand-modified version of the [Ham Radio Technician question pool](http://ncvec.org/downloads/2014-2018%20Tech%20Pool.txt).
 2. Create a Markdown file that [Cleaver](https://github.com/jdan/cleaver) can read and turn into slides.
-
-## Are the slides online?
-
-[Yes, they're available here](https://jasonprogrammer.github.io/hamslides/).
 
 ## Can I modify the slides for my own use?
 
