@@ -13,11 +13,22 @@ The goal of this project is to create web slides for each of the possible questi
 
 ## Can I modify the slides for my own use?
 
-Absolutely! Just grab the markdown file (`hamslides.md`) and use [Cleaver](https://github.com/jdan/cleaver) to create your slides.
+Absolutely! Just grab the markdown file (`dist/hamslides.md`) and use [Cleaver](https://github.com/jdan/cleaver) to create your slides.
 
 ## Can I get a simple JSON file with the questions?
 
 There is a JSON file in this repo (`dist/questions.json`) containing some of the question data. Feel free to use it to generate other slides! I created the parser pretty quickly, so no guarantees that everything is perfect.
+
+## What is the purpose of each file in the repo?
+
+`build.sh` - Commands used to parse the input file (`questions_parse.txt`) and build the markdown (`hamslides.md`) slides.
+`parse_questions.py` - Python code used to parse the questions file.
+`questions_parse.txt` - Hand-modified version of the `questions.txt` file (easier to parse).
+`questions.txt` - Unmodified 2014-2018 question pool text file.
+
+## Did you just sloppily hack this Python code together?
+
+Yes, I needed to get the slides done quickly.
 
 ## License
 
