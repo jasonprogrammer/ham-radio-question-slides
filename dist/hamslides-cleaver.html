@@ -1,0 +1,2651 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>Untitled</title>
+  <style type="text/css">
+    body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #222;
+  font-size: 100%;
+}
+
+.slide {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0; right: 0;
+  background-color: #f7f7f7;
+}
+
+.slide-content {
+  width: 800px;
+  height: 600px;
+  overflow: hidden;
+  margin: 80px auto 0 auto;
+  padding: 30px;
+
+  font-weight: 200;
+  font-size: 200%;
+  line-height: 1.375;
+}
+
+.controls {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+.arrow {
+  width: 0; height: 0;
+  border: 30px solid #333;
+  float: left;
+  margin-right: 30px;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.prev {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+
+  border-left-width: 0;
+  border-right-width: 50px;
+}
+
+.next {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+
+  border-left-width: 50px;
+  border-right-width: 0;
+}
+
+.prev:hover {
+  border-right-color: #888;
+  cursor: pointer;
+}
+
+.next:hover {
+  border-left-color: #888;
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 300%;
+  line-height: 1.2;
+  text-align: center;
+  margin: 170px 0 0;
+}
+
+h2 {
+  font-size: 100%;
+  line-height: 1.2;
+  margin: 5px 0;
+  text-align: center;
+  font-weight: 200;
+}
+
+h3 {
+  font-size: 140%;
+  line-height: 1.2;
+  border-bottom: 1px solid #aaa;
+  margin: 0;
+  padding-bottom: 15px;
+}
+
+ul {
+  padding: 20px 0 0 60px;
+  font-weight: 200;
+  line-height: 1.375;
+}
+
+.author h1 {
+  font-size: 170%;
+  font-weight: 200;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.author h3 {
+  font-weight: 100;
+  text-align: center;
+  font-size: 95%;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  color: #44a4dd;
+}
+
+a:hover {
+  color: #66b5ff;
+}
+
+pre {
+  font-size: 60%;
+  line-height: 1.3;
+}
+
+.progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  z-index: 1;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 3px;
+  background-color: #b4b4b4;
+
+  -webkit-transition: width 0.05s ease-out;
+  -moz-transition: width 0.05s ease-out;
+  -o-transition: width 0.05s ease-out;
+  transition: width 0.05s ease-out;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 850px) {
+
+  body {
+    font-size: 70%;
+  }
+
+  .slide-content {
+    width: auto;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  h1 {
+    margin-top: 120px;
+  }
+
+  .prev, .prev:hover {
+    border-right-color: rgba(135, 135, 135, 0.5);
+  }
+
+  .next, .next:hover {
+    border-left-color: rgba(135, 135, 135, 0.5);
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 50%;
+    overflow: hidden;
+  }
+
+  .slide-content {
+    padding: 10px;
+    margin-top: 10px;
+    height: 340px;
+  }
+
+  h1 {
+    margin-top: 50px;
+  }
+
+  ul {
+    padding-left: 25px;
+  }
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact;
+  }
+
+  @page {
+    size: letter;
+  }
+
+  .hidden {
+    display: inline;
+  }
+
+  html {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  body {
+    margin: 0 auto !important;
+    border: 0;
+    padding: 0;
+    float: none !important;
+    overflow: visible;
+    background: none !important;
+    font-size: 52%;
+  }
+
+  .progress, .controls {
+    display: none;
+  }
+
+  .slide {
+    position: static;
+  }
+
+  .slide-content {
+    border: 1px solid #222;
+    margin-top: 0;
+    margin-bottom: 40px;
+    height: 3.5in;
+    overflow: visible;
+  }
+
+  .slide:nth-child(even) {
+    /* 2 slides per page */
+    page-break-before: always;
+  }
+}
+
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+
+  </style>
+</head>
+<body>
+    <div class="progress">
+    <div class="progress-bar"></div>
+  </div>
+
+  <div class="slide" id="slide-1">
+    <section class="slide-content"><h3 id="which-agency-regulates-and-enforces-the-rules-for-the-amateur-radio-service-in-the-united-states-">Which agency regulates and enforces the rules for the Amateur Radio Service in the United States?</h3>
+<p> The FCC</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-2">
+    <section class="slide-content"><h3 id="which-part-of-the-fcc-regulations-contains-the-rules-governing-the-amateur-radio-service-">Which part of the FCC regulations contains the rules governing the Amateur Radio Service?</h3>
+<p> Part 97</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-3">
+    <section class="slide-content"><h3 id="which-of-the-following-meets-the-fcc-definition-of-harmful-interference-">Which of the following meets the FCC definition of harmful interference?</h3>
+<p> That which seriously degrades, obstructs, or repeatedly interrupts a radio communication service operating in accordance with the Radio Regulations</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-4">
+    <section class="slide-content"><h3 id="which-of-the-following-is-a-purpose-of-the-amateur-radio-service-rules-and-regulations-as-defined-by-the-fcc-">Which of the following is a purpose of the Amateur Radio Service rules and regulations as defined by the FCC?</h3>
+<p> Enhancing international goodwill</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-5">
+    <section class="slide-content"><h3 id="which-of-the-following-services-are-protected-from-interference-by-amateur-signals-under-all-circumstances-">Which of the following services are protected from interference by amateur signals under all circumstances?</h3>
+<p> Radionavigation Service</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-6">
+    <section class="slide-content"><h3 id="what-is-the-fcc-part-97-definition-of-telemetry-">What is the FCC Part 97 definition of telemetry?</h3>
+<p> A one-way transmission of measurements at a distance from the measuring instrument</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-7">
+    <section class="slide-content"><h3 id="which-of-the-following-entities-recommends-transmit-receive-channels-and-other-parameters-for-auxiliary-and-repeater-stations-">Which of the following entities recommends transmit/receive channels and other parameters for auxiliary and repeater stations?</h3>
+<p> Frequency Coordinator</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-8">
+    <section class="slide-content"><h3 id="who-selects-a-frequency-coordinator-">Who selects a Frequency Coordinator?</h3>
+<p> Amateur operators in a local or regional area whose stations are eligible to be auxiliary or repeater stations</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-9">
+    <section class="slide-content"><h3 id="what-is-the-fcc-part-97-definition-of-an-amateur-station-">What is the FCC Part 97 definition of an amateur station?</h3>
+<p> A station in the Amateur Radio Service consisting of the apparatus necessary for carrying on radio communications</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-10">
+    <section class="slide-content"><h3 id="when-is-willful-interference-to-other-amateur-radio-stations-permitted-">When is willful interference to other amateur radio stations permitted?</h3>
+<p> At no time</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-11">
+    <section class="slide-content"><h3 id="which-of-the-following-is-a-permissible-use-of-the-amateur-radio-service-">Which of the following is a permissible use of the Amateur Radio Service?</h3>
+<p> Allowing a person to conduct radio experiments and to communicate with other licensed hams around the world</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-12">
+    <section class="slide-content"><h3 id="what-is-the-fcc-part-97-definition-of-telecommand-">What is the FCC Part 97 definition of telecommand?</h3>
+<p> A one-way transmission to initiate, modify or terminate functions of a device at a distance</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-13">
+    <section class="slide-content"><h3 id="what-must-you-do-if-you-are-operating-on-the-23-cm-band-and-learn-that-you-are-interfering-with-a-radiolocation-station-outside-the-united-states-">What must you do if you are operating on the 23 cm band and learn that you are interfering with a radiolocation station outside the United States?</h3>
+<p> Stop operating or take steps to eliminate the harmful interference</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-14">
+    <section class="slide-content"><h3 id="what-is-the-itu-">What is the ITU?</h3>
+<p> A United Nations agency for information and communication technology issues</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-15">
+    <section class="slide-content"><h3 id="why-are-the-frequency-assignments-for-some-u-s-territories-different-from-those-in-the-50-u-s-states-">Why are the frequency assignments for some U.S. Territories different from those in the 50 U.S. States?</h3>
+<p> Some U. S. Territories are located in ITU regions other than region 2</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-16">
+    <section class="slide-content"><h3 id="which-frequency-is-within-the-6-meter-band-">Which frequency is within the 6 meter band?</h3>
+<p> 52.525 MHz</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-17">
+    <section class="slide-content"><h3 id="which-amateur-band-are-you-using-when-your-station-is-transmitting-on-146-52-mhz-">Which amateur band are you using when your station is transmitting on 146.52 MHz?</h3>
+<p> 2 meter band</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-18">
+    <section class="slide-content"><h3 id="which-70-cm-frequency-is-authorized-to-a-technician-class-license-holder-operating-in-itu-region-2-">Which 70 cm frequency is authorized to a Technician Class license holder operating in ITU Region 2?</h3>
+<p> 443.350 MHz</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-19">
+    <section class="slide-content"><h3 id="which-23-cm-frequency-is-authorized-to-a-technician-class-licensee-">Which 23 cm frequency is authorized to a Technician Class licensee?</h3>
+<p> 1296 MHz</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-20">
+    <section class="slide-content"><h3 id="what-amateur-band-are-you-using-if-you-are-transmitting-on-223-50-mhz-">What amateur band are you using if you are transmitting on 223.50 MHz?</h3>
+<p> 1.25 meter band</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-21">
+    <section class="slide-content"><h3 id="which-of-the-following-is-a-result-of-the-fact-that-the-amateur-service-is-secondary-in-some-portions-of-the-70-cm-band-">Which of the following is a result of the fact that the amateur service is secondary in some portions of the 70 cm band?</h3>
+<p> U.S. amateurs may find non-amateur stations in the bands, and must avoid interfering with them</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-22">
+    <section class="slide-content"><h3 id="why-should-you-not-set-your-transmit-frequency-to-be-exactly-at-the-edge-of-an-amateur-band-or-sub-band-">Why should you not set your transmit frequency to be exactly at the edge of an amateur band or sub-band?</h3>
+<p> To allow for calibration error in the transmitter frequency display<br> So that modulation sidebands do not extend beyond the band edge<br> To allow for transmitter frequency drift</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-23">
+    <section class="slide-content"><h3 id="which-of-the-bands-above-30-mhz-that-are-available-to-technician-class-operators-have-mode-restricted-sub-bands-">Which of the bands above 30 MHz that are available to Technician Class operators have mode-restricted sub-bands?</h3>
+<p> The 6 meter, 2 meter, and 1.25 meter bands</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-24">
+    <section class="slide-content"><h3 id="what-emission-modes-are-permitted-in-the-mode-restricted-sub-bands-at-50-0-to-50-1-mhz-and-144-0-to-144-1-mhz-">What emission modes are permitted in the mode-restricted sub-bands at 50.0 to 50.1 MHz and 144.0 to 144.1 MHz?</h3>
+<p> CW only</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-25">
+    <section class="slide-content"><h3 id="why-are-frequency-assignments-for-u-s-stations-operating-maritime-mobile-not-the-same-everywhere-in-the-world-">Why are frequency assignments for U.S. stations operating maritime mobile not the same everywhere in the world?</h3>
+<p> Amateur frequency assignments can vary among the three ITU regions</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-26">
+    <section class="slide-content"><h3 id="which-emission-may-be-used-between-219-and-220-mhz-">Which emission may be used between 219 and 220 MHz?</h3>
+<p> Data</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-27">
+    <section class="slide-content"><h3 id="which-type-of-call-sign-has-a-single-letter-in-both-its-prefix-and-suffix-">Which type of call sign has a single letter in both its prefix and suffix?</h3>
+<p> Special event</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-28">
+    <section class="slide-content"><h3 id="which-of-the-following-is-a-valid-us-amateur-radio-station-call-sign-">Which of the following is a valid US amateur radio station call sign?</h3>
+<p> W3ABC</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-29">
+    <section class="slide-content"><h3 id="what-types-of-international-communications-are-permitted-by-an-fcc-licensed-amateur-station-">What types of international communications are permitted by an FCC-licensed amateur station?</h3>
+<p> Communications incidental to the purposes of the amateur service and remarks of a personal character</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-30">
+    <section class="slide-content"><h3 id="when-are-you-allowed-to-operate-your-amateur-station-in-a-foreign-country-">When are you allowed to operate your amateur station in a foreign country?</h3>
+<p> When the foreign country authorizes it</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-31">
+    <section class="slide-content"><h3 id="which-of-the-following-is-a-vanity-call-sign-which-a-technician-class-amateur-operator-might-select-if-available-">Which of the following is a vanity call sign which a technician class amateur operator might select if available?</h3>
+<p> K1XXX</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-32">
+    <section class="slide-content"><h3 id="from-which-of-the-following-locations-may-an-fcc-licensed-amateur-station-transmit-in-addition-to-places-where-the-fcc-regulates-communications-">From which of the following locations may an FCC-licensed amateur station transmit, in addition to places where the FCC regulates communications?</h3>
+<p> From any vessel or craft located in international waters and documented or registered in the United States</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-33">
+    <section class="slide-content"><h3 id="what-may-result-when-correspondence-from-the-fcc-is-returned-as-undeliverable-because-the-grantee-failed-to-provide-the-correct-mailing-address-">What may result when correspondence from the FCC is returned as undeliverable because the grantee failed to provide the correct mailing address?</h3>
+<p> Revocation of the station license or suspension of the operator license</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-34">
+    <section class="slide-content"><h3 id="what-is-the-normal-term-for-an-fcc-issued-primary-station-operator-amateur-radio-license-grant-">What is the normal term for an FCC-issued primary station/operator amateur radio license grant?</h3>
+<p> Ten years</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-35">
+    <section class="slide-content"><h3 id="what-is-the-grace-period-following-the-expiration-of-an-amateur-license-within-which-the-license-may-be-renewed-">What is the grace period following the expiration of an amateur license within which the license may be renewed?</h3>
+<p> Two years</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-36">
+    <section class="slide-content"><h3 id="how-soon-after-passing-the-examination-for-your-first-amateur-radio-license-may-you-operate-a-transmitter-on-an-amateur-service-frequency-">How soon after passing the examination for your first amateur radio license may you operate a transmitter on an amateur service frequency?</h3>
+<p> As soon as your operator/station license grant appears in the FCC’s license database</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-37">
+    <section class="slide-content"><h3 id="if-your-license-has-expired-and-is-still-within-the-allowable-grace-period-may-you-continue-to-operate-a-transmitter-on-amateur-service-frequencies-">If your license has expired and is still within the allowable grace period, may you continue to operate a transmitter on amateur service frequencies?</h3>
+<p> No, transmitting is not allowed until the FCC license database shows that the license has been renewed</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-38">
+    <section class="slide-content"><h3 id="who-may-select-a-desired-call-sign-under-the-vanity-call-sign-rules-">Who may select a desired call sign under the vanity call sign rules?</h3>
+<p> Any licensed amateur</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-39">
+    <section class="slide-content"><h3 id="for-which-licenses-classes-are-new-licenses-currently-available-from-the-fcc-">For which licenses classes are new licenses currently available from the FCC?</h3>
+<p> Technician, General, Amateur Extra</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-40">
+    <section class="slide-content"><h3 id="who-may-select-a-vanity-call-sign-for-a-club-station-">Who may select a vanity call sign for a club station?</h3>
+<p> Only the person named as trustee on the club station license grant</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-41">
+    <section class="slide-content"><h3 id="with-which-countries-are-fcc-licensed-amateur-stations-prohibited-from-exchanging-communications-">With which countries are FCC-licensed amateur stations prohibited from exchanging communications?</h3>
+<p> Any country whose administration has notified the ITU that it objects to such communications</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-42">
+    <section class="slide-content"><h3 id="on-which-of-the-following-occasions-may-an-fcc-licensed-amateur-station-exchange-messages-with-a-u-s-military-station-">On which of the following occasions may an FCC-licensed amateur station exchange messages with a U.S. military station?</h3>
+<p> During an Armed Forces Day Communications Test</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-43">
+    <section class="slide-content"><h3 id="when-is-the-transmission-of-codes-or-ciphers-that-hide-the-meaning-of-a-message-allowed-by-an-amateur-station-">When is the transmission of codes or ciphers that hide the meaning of a message allowed by an amateur station?</h3>
+<p> Only when transmitting control commands to space stations or radio control craft</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-44">
+    <section class="slide-content"><h3 id="what-is-the-only-time-an-amateur-station-is-authorized-to-transmit-music-">What is the only time an amateur station is authorized to transmit music?</h3>
+<p> When incidental to an authorized retransmission of manned spacecraft communications</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-45">
+    <section class="slide-content"><h3 id="when-may-amateur-radio-operators-use-their-stations-to-notify-other-amateurs-of-the-availability-of-equipment-for-sale-or-trade-">When may amateur radio operators use their stations to notify other amateurs of the availability of equipment for sale or trade?</h3>
+<p> When the equipment is normally used in an amateur station and such activity is not conducted on a regular basis</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-46">
+    <section class="slide-content"><h3 id="what-if-any-are-the-restrictions-concerning-transmission-of-language-that-may-be-considered-indecent-or-obscene-">What, if any, are the restrictions concerning transmission of language that may be considered indecent or obscene?</h3>
+<p> Any such language is prohibited</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-47">
+    <section class="slide-content"><h3 id="what-types-of-amateur-stations-can-automatically-retransmit-the-signals-of-other-amateur-stations-">What types of amateur stations can automatically retransmit the signals of other amateur stations?</h3>
+<p> Auxiliary, repeater, or space stations</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-48">
+    <section class="slide-content"><h3 id="in-which-of-the-following-circumstances-may-the-control-operator-of-an-amateur-station-receive-compensation-for-operating-the-station-">In which of the following circumstances may the control operator of an amateur station receive compensation for operating the station?</h3>
+<p> When the communication is incidental to classroom instruction at an educational institution</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-49">
+    <section class="slide-content"><h3 id="under-which-of-the-following-circumstances-are-amateur-stations-authorized-to-transmit-signals-related-to-broadcasting-program-production-or-news-gathering-assuming-no-other-means-is-available-">Under which of the following circumstances are amateur stations authorized to transmit signals related to broadcasting, program production, or news gathering, assuming no other means is available?</h3>
+<p> Only where such communications directly relate to the immediate safety of human life or protection of property</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-50">
+    <section class="slide-content"><h3 id="what-is-the-meaning-of-the-term-broadcasting-in-the-fcc-rules-for-the-amateur-services-">What is the meaning of the term “broadcasting” in the FCC rules for the amateur services?</h3>
+<p> Transmissions intended for reception by the general public</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-51">
+    <section class="slide-content"><h3 id="when-may-an-amateur-station-transmit-without-identifying-">When may an amateur station transmit without identifying?</h3>
+<p> When transmitting signals to control a model craft</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-52">
+    <section class="slide-content"><h3 id="under-which-of-the-following-circumstances-may-an-amateur-radio-station-engage-in-broadcasting-">Under which of the following circumstances may an amateur radio station engage in broadcasting?</h3>
+<p> When transmitting code practice, information bulletins, or transmissions necessary to provide emergency communications</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-53">
+    <section class="slide-content"><h3 id="when-is-an-amateur-station-permitted-to-transmit-without-a-control-operator-">When is an amateur station permitted to transmit without a control operator?</h3>
+<p> Never</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-54">
+    <section class="slide-content"><h3 id="who-may-a-station-licensee-designate-to-be-the-control-operator-of-an-amateur-station-">Who may a station licensee designate to be the control operator of an amateur station?</h3>
+<p> Only a person for whom an amateur operator/primary station license grant appears in the FCC database or who is authorized for alien reciprocal operation</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-55">
+    <section class="slide-content"><h3 id="who-must-designate-the-station-control-operator-">Who must designate the station control operator?</h3>
+<p> The station licensee</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-56">
+    <section class="slide-content"><h3 id="what-determines-the-transmitting-privileges-of-an-amateur-station-">What determines the transmitting privileges of an amateur station?</h3>
+<p> The class of operator license held by the control operator</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-57">
+    <section class="slide-content"><h3 id="what-is-an-amateur-station-control-point-">What is an amateur station control point?</h3>
+<p> The location at which the control operator function is performed</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-58">
+    <section class="slide-content"><h3 id="under-what-type-of-control-do-aprs-network-digipeaters-operate-">Under what type of control do APRS network digipeaters operate?</h3>
+<p> Automatic</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-59">
+    <section class="slide-content"><h3 id="when-the-control-operator-is-not-the-station-licensee-who-is-responsible-for-the-proper-operation-of-the-station-">When the control operator is not the station licensee, who is responsible for the proper operation of the station?</h3>
+<p> The control operator and the station licensee are equally responsible</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-60">
+    <section class="slide-content"><h3 id="which-of-the-following-is-an-example-of-automatic-control-">Which of the following is an example of automatic control?</h3>
+<p> Repeater operation</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-61">
+    <section class="slide-content"><h3 id="what-type-of-control-is-being-used-when-the-control-operator-is-at-the-control-point-">What type of control is being used when the control operator is at the control point?</h3>
+<p> Local control</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-62">
+    <section class="slide-content"><h3 id="which-of-the-following-is-an-example-of-remote-control-as-defined-in-part-97-">Which of the following is an example of remote control as defined in Part 97?</h3>
+<p> Operating the station over the Internet</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-63">
+    <section class="slide-content"><h3 id="who-does-the-fcc-presume-to-be-the-control-operator-of-an-amateur-station-unless-documentation-to-the-contrary-is-in-the-station-records-">Who does the FCC presume to be the control operator of an amateur station, unless documentation to the contrary is in the station records?</h3>
+<p> The station licensee</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-64">
+    <section class="slide-content"><h3 id="when-under-normal-circumstances-may-a-technician-class-licensee-be-the-control-operator-of-a-station-operating-in-an-exclusive-extra-class-operator-segment-of-the-amateur-bands-">When, under normal circumstances, may a Technician Class licensee be the control operator of a station operating in an exclusive Extra Class operator segment of the amateur bands?</h3>
+<p> At no time</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-65">
+    <section class="slide-content"><h3 id="what-type-of-identification-is-being-used-when-identifying-a-station-on-the-air-as-race-headquarters-">What type of identification is being used when identifying a station on the air as Race Headquarters?</h3>
+<p> Tactical call sign</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-66">
+    <section class="slide-content"><h3 id="when-using-tactical-identifiers-such-as-race-headquarters-during-a-community-service-net-operation-how-often-must-your-station-transmit-the-station-s-fcc-assigned-call-sign-">When using tactical identifiers such as “Race Headquarters” during a community service net operation, how often must your station transmit the station’s FCC-assigned call sign?</h3>
+<p> At the end of each communication and every ten minutes during a communication</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-67">
+    <section class="slide-content"><h3 id="when-is-an-amateur-station-required-to-transmit-its-assigned-call-sign-">When is an amateur station required to transmit its assigned call sign?</h3>
+<p> At least every 10 minutes during and at the end of a communication</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-68">
+    <section class="slide-content"><h3 id="which-of-the-following-is-an-acceptable-language-to-use-for-station-identification-when-operating-in-a-phone-sub-band-">Which of the following is an acceptable language to use for station identification when operating in a phone sub-band?</h3>
+<p> The English language</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-69">
+    <section class="slide-content"><h3 id="what-method-of-call-sign-identification-is-required-for-a-station-transmitting-phone-signals-">What method of call sign identification is required for a station transmitting phone signals?</h3>
+<p> Send the call sign using CW or phone emission</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-70">
+    <section class="slide-content"><h3 id="which-of-the-following-formats-of-a-self-assigned-indicator-is-acceptable-when-identifying-using-a-phone-transmission-">Which of the following formats of a self-assigned indicator is acceptable when identifying using a phone transmission?</h3>
+<p> KL7CC stroke W3<br> KL7CC slant W3<br> KL7CC slash W3</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-71">
+    <section class="slide-content"><h3 id="which-of-the-following-restrictions-apply-when-a-non-licensed-person-is-allowed-to-speak-to-a-foreign-station-using-a-station-under-the-control-of-a-technician-class-control-operator-">Which of the following restrictions apply when a non-licensed person is allowed to speak to a foreign station using a station under the control of a Technician Class control operator?</h3>
+<p> The foreign station must be one with which the U.S. has a third party agreement</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-72">
+    <section class="slide-content"><h3 id="which-indicator-is-required-by-the-fcc-to-be-transmitted-after-a-station-call-sign-">Which indicator is required by the FCC to be transmitted after a station call sign?</h3>
+<p> /KT, /AE or /AG when using new license privileges earned by CSCE while waiting for an upgrade to a previously issued license to appear in the FCC license database</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-73">
+    <section class="slide-content"><h3 id="what-type-of-amateur-station-simultaneously-retransmits-the-signal-of-another-amateur-station-on-a-different-channel-or-channels-">What type of amateur station simultaneously retransmits the signal of another amateur station on a different channel or channels?</h3>
+<p> Repeater station</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-74">
+    <section class="slide-content"><h3 id="who-is-accountable-should-a-repeater-inadvertently-retransmit-communications-that-violate-the-fcc-rules-">Who is accountable should a repeater inadvertently retransmit communications that violate the FCC rules?</h3>
+<p> The control operator of the originating station</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-75">
+    <section class="slide-content"><h3 id="to-which-foreign-stations-do-the-fcc-rules-authorize-the-transmission-of-non-emergency-third-party-communications-">To which foreign stations do the FCC rules authorize the transmission of non-emergency third party communications?</h3>
+<p> Any station whose government permits such communications</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-76">
+    <section class="slide-content"><h3 id="how-many-persons-are-required-to-be-members-of-a-club-for-a-club-station-license-to-be-issued-by-the-fcc-">How many persons are required to be members of a club for a club station license to be issued by the FCC?</h3>
+<p> At least 4</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-77">
+    <section class="slide-content"><h3 id="when-must-the-station-licensee-make-the-station-and-its-records-available-for-fcc-inspection-">When must the station licensee make the station and its records available for FCC inspection?</h3>
+<p> At any time upon request by an FCC representative</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-78">
+    <section class="slide-content"><h3 id="what-is-the-most-common-repeater-frequency-offset-in-the-2-meter-band-">What is the most common repeater frequency offset in the 2 meter band?</h3>
+<p> Plus or minus 600 kHz</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-79">
+    <section class="slide-content"><h3 id="what-is-the-national-calling-frequency-for-fm-simplex-operations-in-the-70-cm-band-">What is the national calling frequency for FM simplex operations in the 70 cm band?</h3>
+<p> 446.000 MHz</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-80">
+    <section class="slide-content"><h3 id="what-is-a-common-repeater-frequency-offset-in-the-70-cm-band-">What is a common repeater frequency offset in the 70 cm band?</h3>
+<p> Plus or minus 5 MHz</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-81">
+    <section class="slide-content"><h3 id="what-is-an-appropriate-way-to-call-another-station-on-a-repeater-if-you-know-the-other-station-s-call-sign-">What is an appropriate way to call another station on a repeater if you know the other station&#39;s call sign?</h3>
+<p> Say the station&#39;s call sign then identify with your call sign</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-82">
+    <section class="slide-content"><h3 id="how-should-you-respond-to-a-station-calling-cq-">How should you respond to a station calling CQ?</h3>
+<p> Transmit the other station’s call sign followed by your call sign</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-83">
+    <section class="slide-content"><h3 id="what-must-an-amateur-operator-do-when-making-on-air-transmissions-to-test-equipment-or-antennas-">What must an amateur operator do when making on-air transmissions to test equipment or antennas?</h3>
+<p> Properly identify the transmitting station</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-84">
+    <section class="slide-content"><h3 id="which-of-the-following-is-true-when-making-a-test-transmission-">Which of the following is true when making a test transmission?</h3>
+<p> Station identification is required at least every ten minutes during the test and at the end of the test</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-85">
+    <section class="slide-content"><h3 id="what-is-the-meaning-of-the-procedural-signal-cq-">What is the meaning of the procedural signal “CQ”?</h3>
+<p> Calling any station</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-86">
+    <section class="slide-content"><h3 id="what-brief-statement-is-often-transmitted-in-place-of-cq-to-indicate-that-you-are-listening-on-a-repeater-">What brief statement is often transmitted in place of “CQ” to indicate that you are listening on a repeater?</h3>
+<p> Your call sign</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-87">
+    <section class="slide-content"><h3 id="what-is-a-band-plan-beyond-the-privileges-established-by-the-fcc-">What is a band plan, beyond the privileges established by the FCC?</h3>
+<p> A voluntary guideline for using different modes or activities within an amateur band</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-88">
+    <section class="slide-content"><h3 id="which-of-the-following-is-an-fcc-rule-regarding-power-levels-used-in-the-amateur-bands-under-normal-non-distress-circumstances-">Which of the following is an FCC rule regarding power levels used in the amateur bands, under normal, non-distress circumstances?</h3>
+<p> While not exceeding the maximum power permitted on a given band, use the minimum power necessary to carry out the desired communication</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-89">
+    <section class="slide-content"><h3 id="which-of-the-following-is-a-guideline-to-use-when-choosing-an-operating-frequency-for-calling-cq-">Which of the following is a guideline to use when choosing an operating frequency for calling CQ?</h3>
+<p> Listen first to be sure that no one else is using the frequency<br> Ask if the frequency is in use<br> Make sure you are in your assigned band</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-90">
+    <section class="slide-content"><h3 id="what-is-the-term-used-to-describe-an-amateur-station-that-is-transmitting-and-receiving-on-the-same-frequency-">What is the term used to describe an amateur station that is transmitting and receiving on the same frequency?</h3>
+<p> Simplex communication</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-91">
+    <section class="slide-content"><h3 id="what-is-the-term-used-to-describe-the-use-of-a-sub-audible-tone-transmitted-with-normal-voice-audio-to-open-the-squelch-of-a-receiver-">What is the term used to describe the use of a sub-audible tone transmitted with normal voice audio to open the squelch of a receiver?</h3>
+<p> CTCSS</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-92">
+    <section class="slide-content"><h3 id="which-of-the-following-describes-the-muting-of-receiver-audio-controlled-solely-by-the-presence-or-absence-of-an-rf-signal-">Which of the following describes the muting of receiver audio controlled solely by the presence or absence of an RF signal?</h3>
+<p> Carrier squelch</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-93">
+    <section class="slide-content"><h3 id="which-of-the-following-common-problems-might-cause-you-to-be-able-to-hear-but-not-access-a-repeater-even-when-transmitting-with-the-proper-offset-">Which of the following common problems might cause you to be able to hear but not access a repeater even when transmitting with the proper offset?</h3>
+<p> The repeater receiver may require an audio tone burst for access<br> The repeater receiver may require a CTCSS tone for access<br> The repeater receiver may require a DCS tone sequence for access</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-94">
+    <section class="slide-content"><h3 id="what-determines-the-amount-of-deviation-of-an-fm-as-opposed-to-pm-signal-">What determines the amount of deviation of an FM (as opposed to PM) signal?</h3>
+<p> The amplitude of the modulating signal</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-95">
+    <section class="slide-content"><h3 id="what-happens-when-the-deviation-of-an-fm-transmitter-is-increased-">What happens when the deviation of an FM transmitter is increased?</h3>
+<p> Its signal occupies more bandwidth</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-96">
+    <section class="slide-content"><h3 id="what-could-cause-your-fm-signal-to-interfere-with-stations-on-nearby-frequencies-">What could cause your FM signal to interfere with stations on nearby frequencies?</h3>
+<p> Microphone gain too high, causing over-deviation</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-97">
+    <section class="slide-content"><h3 id="which-of-the-following-applies-when-two-stations-transmitting-on-the-same-frequency-interfere-with-each-other-">Which of the following applies when two stations transmitting on the same frequency interfere with each other?</h3>
+<p> Common courtesy should prevail, but no one has absolute right to an amateur frequency</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-98">
+    <section class="slide-content"><h3 id="which-of-the-following-methods-is-encouraged-by-the-fcc-when-identifying-your-station-when-using-phone-">Which of the following methods is encouraged by the FCC when identifying your station when using phone?</h3>
+<p> Use of a phonetic alphabet</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-99">
+    <section class="slide-content"><h3 id="which-q-signal-indicates-that-you-are-receiving-interference-from-other-stations-">Which Q signal indicates that you are receiving interference from other stations?</h3>
+<p> QRM</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-100">
+    <section class="slide-content"><h3 id="which-q-signal-indicates-that-you-are-changing-frequency-">Which Q signal indicates that you are changing frequency?</h3>
+<p> QSY</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-101">
+    <section class="slide-content"><h3 id="under-what-circumstances-should-you-consider-communicating-via-simplex-rather-than-a-repeater-">Under what circumstances should you consider communicating via simplex rather than a repeater?</h3>
+<p> When the stations can communicate directly without using a repeater</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-102">
+    <section class="slide-content"><h3 id="which-of-the-following-is-true-of-the-use-of-ssb-phone-in-amateur-bands-above-50-mhz-">Which of the following is true of the use of SSB phone in amateur bands above 50 MHz?</h3>
+<p> It is permitted in at least some portion of all the amateur bands above 50 MHz</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-103">
+    <section class="slide-content"><h3 id="when-do-the-fcc-rules-not-apply-to-the-operation-of-an-amateur-station-">When do the FCC rules NOT apply to the operation of an amateur station?</h3>
+<p> Never, FCC rules always apply</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-104">
+    <section class="slide-content"><h3 id="what-is-one-way-to-recharge-a-12-volt-lead-acid-station-battery-if-the-commercial-power-is-out-">What is one way to recharge a 12-volt lead-acid station battery if the commercial power is out?</h3>
+<p> Connect the battery in parallel with a vehicle’s battery and run the engine</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-105">
+    <section class="slide-content"><h3 id="what-should-be-done-to-insure-that-voice-message-traffic-containing-proper-names-and-unusual-words-are-copied-correctly-by-the-receiving-station-">What should be done to insure that voice message traffic containing proper names and unusual words are copied correctly by the receiving station?</h3>
+<p> Such words and terms should be spelled out using a standard phonetic alphabet</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-106">
+    <section class="slide-content"><h3 id="what-do-races-and-ares-have-in-common-">What do RACES and ARES have in common?</h3>
+<p> Both organizations may provide communications during emergencies</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-107">
+    <section class="slide-content"><h3 id="which-of-the-following-describes-the-radio-amateur-civil-emergency-service-races-">Which of the following describes the Radio Amateur Civil Emergency Service (RACES)?</h3>
+<p> A radio service using amateur frequencies for emergency management or civil defense communications<br> A radio service using amateur stations for emergency management or civil defense communications<br> An emergency service using amateur operators certified by a civil defense organization as being enrolled in that organization</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-108">
+    <section class="slide-content"><h3 id="which-of-the-following-is-an-accepted-practice-to-get-the-immediate-attention-of-a-net-control-station-when-reporting-an-emergency-">Which of the following is an accepted practice to get the immediate attention of a net control station when reporting an emergency?</h3>
+<p> Begin your transmission by saying &quot;Priority&quot; or &quot;Emergency&quot; followed by your call sign</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-109">
+    <section class="slide-content"><h3 id="which-of-the-following-is-an-accepted-practice-for-an-amateur-operator-who-has-checked-into-an-emergency-traffic-net-">Which of the following is an accepted practice for an amateur operator who has checked into an emergency traffic net?</h3>
+<p> Remain on frequency without transmitting until asked to do so by the net control station</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-110">
+    <section class="slide-content"><h3 id="which-of-the-following-is-a-characteristic-of-good-emergency-traffic-handling-">Which of the following is a characteristic of good emergency traffic handling?</h3>
+<p> Passing messages exactly as received</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-111">
+    <section class="slide-content"><h3 id="are-amateur-station-control-operators-ever-permitted-to-operate-outside-the-frequency-privileges-of-their-license-class-">Are amateur station control operators ever permitted to operate outside the frequency privileges of their license class?</h3>
+<p> Yes, but only if necessary in situations involving the immediate safety of human life or protection of property</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-112">
+    <section class="slide-content"><h3 id="what-is-the-preamble-in-a-formal-traffic-message-">What is the preamble in a formal traffic message?</h3>
+<p> The information needed to track the message as it passes through the amateur radio traffic handling system</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-113">
+    <section class="slide-content"><h3 id="what-is-meant-by-the-term-check-in-reference-to-a-formal-traffic-message-">What is meant by the term “check” in reference to a formal traffic message?</h3>
+<p> The check is a count of the number of words or word equivalents in the text portion of the message</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-114">
+    <section class="slide-content"><h3 id="what-is-the-amateur-radio-emergency-service-ares-">What is the Amateur Radio Emergency Service (ARES)?</h3>
+<p> Licensed amateurs who have voluntarily registered their qualifications and equipment for communications duty in the public service</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-115">
+    <section class="slide-content"><h3 id="what-should-you-do-if-another-operator-reports-that-your-station-s-2-meter-signals-were-strong-just-a-moment-ago-but-now-they-are-weak-or-distorted-">What should you do if another operator reports that your station’s 2 meter signals were strong just a moment ago, but now they are weak or distorted?</h3>
+<p> Try moving a few feet or changing the direction of your antenna if possible, as reflections may be causing multi-path distortion</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-116">
+    <section class="slide-content"><h3 id="why-are-uhf-signals-often-more-effective-from-inside-buildings-than-vhf-signals-">Why are UHF signals often more effective from inside buildings than VHF signals?</h3>
+<p> The shorter wavelength allows them to more easily penetrate the structure of buildings</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-117">
+    <section class="slide-content"><h3 id="what-antenna-polarization-is-normally-used-for-long-distance-weak-signal-cw-and-ssb-contacts-using-the-vhf-and-uhf-bands-">What antenna polarization is normally used for long-distance weak-signal CW and SSB contacts using the VHF and UHF bands?</h3>
+<p> Horizontal</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-118">
+    <section class="slide-content"><h3 id="what-can-happen-if-the-antennas-at-opposite-ends-of-a-vhf-or-uhf-line-of-sight-radio-link-are-not-using-the-same-polarization-">What can happen if the antennas at opposite ends of a VHF or UHF line of sight radio link are not using the same polarization?</h3>
+<p> Signals could be significantly weaker</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-119">
+    <section class="slide-content"><h3 id="when-using-a-directional-antenna-how-might-your-station-be-able-to-access-a-distant-repeater-if-buildings-or-obstructions-are-blocking-the-direct-line-of-sight-path-">When using a directional antenna, how might your station be able to access a distant repeater if buildings or obstructions are blocking the direct line of sight path?</h3>
+<p> Try to find a path that reflects signals to the repeater</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-120">
+    <section class="slide-content"><h3 id="what-term-is-commonly-used-to-describe-the-rapid-fluttering-sound-sometimes-heard-from-mobile-stations-that-are-moving-while-transmitting-">What term is commonly used to describe the rapid fluttering sound sometimes heard from mobile stations that are moving while transmitting?</h3>
+<p> Picket fencing</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-121">
+    <section class="slide-content"><h3 id="what-type-of-wave-carries-radio-signals-between-transmitting-and-receiving-stations-">What type of wave carries radio signals between transmitting and receiving stations?</h3>
+<p> Electromagnetic</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-122">
+    <section class="slide-content"><h3 id="which-of-the-following-is-a-likely-cause-of-irregular-fading-of-signals-received-by-ionospheric-reflection-">Which of the following is a likely cause of irregular fading of signals received by ionospheric reflection?</h3>
+<p> Random combining of signals arriving via different paths</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-123">
+    <section class="slide-content"><h3 id="which-of-the-following-results-from-the-fact-that-skip-signals-refracted-from-the-ionosphere-are-elliptically-polarized-">Which of the following results from the fact that skip signals refracted from the ionosphere are elliptically polarized?</h3>
+<p> Either vertically or horizontally polarized antennas may be used for transmission or reception</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-124">
+    <section class="slide-content"><h3 id="what-may-occur-if-data-signals-propagate-over-multiple-paths-">What may occur if data signals propagate over multiple paths?</h3>
+<p> Error rates are likely to increase</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-125">
+    <section class="slide-content"><h3 id="which-part-of-the-atmosphere-enables-the-propagation-of-radio-signals-around-the-world-">Which part of the atmosphere enables the propagation of radio signals around the world?</h3>
+<p> The ionosphere</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-126">
+    <section class="slide-content"><h3 id="what-is-the-name-for-the-distance-a-radio-wave-travels-during-one-complete-cycle-">What is the name for the distance a radio wave travels during one complete cycle?</h3>
+<p> Wavelength</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-127">
+    <section class="slide-content"><h3 id="what-property-of-a-radio-wave-is-used-to-describe-its-polarization-">What property of a radio wave is used to describe its polarization?</h3>
+<p> The orientation of the electric field</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-128">
+    <section class="slide-content"><h3 id="what-are-the-two-components-of-a-radio-wave-">What are the two components of a radio wave?</h3>
+<p> Electric and magnetic fields</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-129">
+    <section class="slide-content"><h3 id="how-fast-does-a-radio-wave-travel-through-free-space-">How fast does a radio wave travel through free space?</h3>
+<p> At the speed of light</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-130">
+    <section class="slide-content"><h3 id="how-does-the-wavelength-of-a-radio-wave-relate-to-its-frequency-">How does the wavelength of a radio wave relate to its frequency?</h3>
+<p> The wavelength gets shorter as the frequency increases</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-131">
+    <section class="slide-content"><h3 id="what-is-the-formula-for-converting-frequency-to-approximate-wavelength-in-meters-">What is the formula for converting frequency to approximate wavelength in meters?</h3>
+<p> Wavelength in meters equals 300 divided by frequency in megahertz</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-132">
+    <section class="slide-content"><h3 id="what-property-of-radio-waves-is-often-used-to-identify-the-different-frequency-bands-">What property of radio waves is often used to identify the different frequency bands?</h3>
+<p> The approximate wavelength</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-133">
+    <section class="slide-content"><h3 id="what-are-the-frequency-limits-of-the-vhf-spectrum-">What are the frequency limits of the VHF spectrum?</h3>
+<p> 30 to 300 MHz</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-134">
+    <section class="slide-content"><h3 id="what-are-the-frequency-limits-of-the-uhf-spectrum-">What are the frequency limits of the UHF spectrum?</h3>
+<p> 300 to 3000 MHz</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-135">
+    <section class="slide-content"><h3 id="what-frequency-range-is-referred-to-as-hf-">What frequency range is referred to as HF?</h3>
+<p> 3 to 30 MHz</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-136">
+    <section class="slide-content"><h3 id="what-is-the-approximate-velocity-of-a-radio-wave-as-it-travels-through-free-space-">What is the approximate velocity of a radio wave as it travels through free space?</h3>
+<p> 300,000,000 meters per second</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-137">
+    <section class="slide-content"><h3 id="why-are-direct-not-via-a-repeater-uhf-signals-rarely-heard-from-stations-outside-your-local-coverage-area-">Why are direct (not via a repeater) UHF signals rarely heard from stations outside your local coverage area?</h3>
+<p> UHF signals are usually not reflected by the ionosphere</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-138">
+    <section class="slide-content"><h3 id="which-of-the-following-might-be-happening-when-vhf-signals-are-being-received-from-long-distances-">Which of the following might be happening when VHF signals are being received from long distances?</h3>
+<p> Signals are being refracted from a sporadic E layer</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-139">
+    <section class="slide-content"><h3 id="what-is-a-characteristic-of-vhf-signals-received-via-auroral-reflection-">What is a characteristic of VHF signals received via auroral reflection?</h3>
+<p> The signals exhibit rapid fluctuations of strength and often sound distorted</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-140">
+    <section class="slide-content"><h3 id="which-of-the-following-propagation-types-is-most-commonly-associated-with-occasional-strong-over-the-horizon-signals-on-the-10-6-and-2-meter-bands-">Which of the following propagation types is most commonly associated with occasional strong over-the-horizon signals on the 10, 6, and 2 meter bands?</h3>
+<p> Sporadic E</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-141">
+    <section class="slide-content"><h3 id="which-of-the-following-effects-might-cause-radio-signals-to-be-heard-despite-obstructions-between-the-transmitting-and-receiving-stations-">Which of the following effects might cause radio signals to be heard despite obstructions between the transmitting and receiving stations?</h3>
+<p> Knife-edge diffraction</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-142">
+    <section class="slide-content"><h3 id="what-mode-is-responsible-for-allowing-over-the-horizon-vhf-and-uhf-communications-to-ranges-of-approximately-300-miles-on-a-regular-basis-">What mode is responsible for allowing over-the-horizon VHF and UHF communications to ranges of approximately 300 miles on a regular basis?</h3>
+<p> Tropospheric scatter</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-143">
+    <section class="slide-content"><h3 id="what-band-is-best-suited-for-communicating-via-meteor-scatter-">What band is best suited for communicating via meteor scatter?</h3>
+<p> 6 meters</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-144">
+    <section class="slide-content"><h3 id="what-causes-tropospheric-ducting-">What causes tropospheric ducting?</h3>
+<p> Temperature inversions in the atmosphere</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-145">
+    <section class="slide-content"><h3 id="what-is-generally-the-best-time-for-long-distance-10-meter-band-propagation-via-the-f-layer-">What is generally the best time for long-distance 10 meter band propagation via the F layer?</h3>
+<p> From dawn to shortly after sunset during periods of high sunspot activity</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-146">
+    <section class="slide-content"><h3 id="what-is-the-radio-horizon-">What is the radio horizon?</h3>
+<p> The distance over which two stations can communicate by direct path</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-147">
+    <section class="slide-content"><h3 id="why-do-vhf-and-uhf-radio-signals-usually-travel-somewhat-farther-than-the-visual-line-of-sight-distance-between-two-stations-">Why do VHF and UHF radio signals usually travel somewhat farther than the visual line of sight distance between two stations?</h3>
+<p> The Earth seems less curved to radio waves than to light</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-148">
+    <section class="slide-content"><h3 id="which-of-the-following-bands-may-provide-long-distance-communications-during-the-peak-of-the-sunspot-cycle-">Which of the following bands may provide long distance communications during the peak of the sunspot cycle?</h3>
+<p> Six or ten meters</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-149">
+    <section class="slide-content"><h3 id="which-of-the-following-is-true-concerning-the-microphone-connectors-on-amateur-transceivers-">Which of the following is true concerning the microphone connectors on amateur transceivers?</h3>
+<p> Some connectors include push-to-talk and voltages for powering the microphone</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-150">
+    <section class="slide-content"><h3 id="how-might-a-computer-be-used-as-part-of-an-amateur-radio-station-">How might a computer be used as part of an amateur radio station?</h3>
+<p> For logging contacts and contact information<br> For sending and/or receiving CW<br> For generating and decoding digital signals</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-151">
+    <section class="slide-content"><h3 id="which-is-a-good-reason-to-use-a-regulated-power-supply-for-communications-equipment-">Which is a good reason to use a regulated power supply for communications equipment?</h3>
+<p> It prevents voltage fluctuations from reaching sensitive circuits</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-152">
+    <section class="slide-content"><h3 id="where-must-a-filter-be-installed-to-reduce-harmonic-emissions-from-your-station-">Where must a filter be installed to reduce harmonic emissions from your station?</h3>
+<p> Between the transmitter and the antenna</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-153">
+    <section class="slide-content"><h3 id="where-should-an-in-line-swr-meter-be-connected-to-monitor-the-standing-wave-ratio-of-the-station-antenna-system-">Where should an in-line SWR meter be connected to monitor the standing wave ratio of the station antenna system?</h3>
+<p> In series with the feed line, between the transmitter and antenna</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-154">
+    <section class="slide-content"><h3 id="which-of-the-following-would-be-connected-between-a-transceiver-and-computer-in-a-packet-radio-station-">Which of the following would be connected between a transceiver and computer in a packet radio station?</h3>
+<p> Terminal node controller</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-155">
+    <section class="slide-content"><h3 id="how-is-a-computer-s-sound-card-used-when-conducting-digital-communications-using-a-computer-">How is a computer’s sound card used when conducting digital communications using a computer?</h3>
+<p> The sound card provides audio to the microphone input and converts received audio to digital form</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-156">
+    <section class="slide-content"><h3 id="which-type-of-conductor-is-best-to-use-for-rf-grounding-">Which type of conductor is best to use for RF grounding?</h3>
+<p> Flat strap</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-157">
+    <section class="slide-content"><h3 id="which-of-the-following-could-you-use-to-cure-distorted-audio-caused-by-rf-current-flowing-on-the-shield-of-a-microphone-cable-">Which of the following could you use to cure distorted audio caused by RF current flowing on the shield of a microphone cable?</h3>
+<p> Ferrite choke</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-158">
+    <section class="slide-content"><h3 id="what-is-the-source-of-a-high-pitched-whine-that-varies-with-engine-speed-in-a-mobile-transceiver-s-receive-audio-">What is the source of a high-pitched whine that varies with engine speed in a mobile transceiver’s receive audio?</h3>
+<p> The alternator</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-159">
+    <section class="slide-content"><h3 id="where-should-the-negative-return-connection-of-a-mobile-transceiver-s-power-cable-be-connected-">Where should the negative return connection of a mobile transceiver&#39;s power cable be connected?</h3>
+<p> At the battery or engine block ground strap</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-160">
+    <section class="slide-content"><h3 id="what-could-be-happening-if-another-operator-reports-a-variable-high-pitched-whine-on-the-audio-from-your-mobile-transmitter-">What could be happening if another operator reports a variable high-pitched whine on the audio from your mobile transmitter?</h3>
+<p> Noise on the vehicle’s electrical system is being transmitted along with your speech audio</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-161">
+    <section class="slide-content"><h3 id="what-may-happen-if-a-transmitter-is-operated-with-the-microphone-gain-set-too-high-">What may happen if a transmitter is operated with the microphone gain set too high?</h3>
+<p> The output signal might become distorted</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-162">
+    <section class="slide-content"><h3 id="which-of-the-following-can-be-used-to-enter-the-operating-frequency-on-a-modern-transceiver-">Which of the following can be used to enter the operating frequency on a modern transceiver?</h3>
+<p> The keypad or VFO knob</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-163">
+    <section class="slide-content"><h3 id="what-is-the-purpose-of-the-squelch-control-on-a-transceiver-">What is the purpose of the squelch control on a transceiver?</h3>
+<p> To mute receiver output noise when no signal is being received</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-164">
+    <section class="slide-content"><h3 id="what-is-a-way-to-enable-quick-access-to-a-favorite-frequency-on-your-transceiver-">What is a way to enable quick access to a favorite frequency on your transceiver?</h3>
+<p> Store the frequency in a memory channel</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-165">
+    <section class="slide-content"><h3 id="which-of-the-following-would-reduce-ignition-interference-to-a-receiver-">Which of the following would reduce ignition interference to a receiver?</h3>
+<p> Turn on the noise blanker</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-166">
+    <section class="slide-content"><h3 id="which-of-the-following-controls-could-be-used-if-the-voice-pitch-of-a-single-sideband-signal-seems-too-high-or-low-">Which of the following controls could be used if the voice pitch of a single-sideband signal seems too high or low?</h3>
+<p> The receiver RIT or clarifier</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-167">
+    <section class="slide-content"><h3 id="what-does-the-term-rit-mean-">What does the term “RIT” mean?</h3>
+<p> Receiver Incremental Tuning</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-168">
+    <section class="slide-content"><h3 id="what-is-the-advantage-of-having-multiple-receive-bandwidth-choices-on-a-multimode-transceiver-">What is the advantage of having multiple receive bandwidth choices on a multimode transceiver?</h3>
+<p> Permits noise or interference reduction by selecting a bandwidth matching the mode</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-169">
+    <section class="slide-content"><h3 id="which-of-the-following-is-an-appropriate-receive-filter-bandwidth-to-select-in-order-to-minimize-noise-and-interference-for-ssb-reception-">Which of the following is an appropriate receive filter bandwidth to select in order to minimize noise and interference for SSB reception?</h3>
+<p> 2400 Hz</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-170">
+    <section class="slide-content"><h3 id="which-of-the-following-is-an-appropriate-receive-filter-bandwidth-to-select-in-order-to-minimize-noise-and-interference-for-cw-reception-">Which of the following is an appropriate receive filter bandwidth to select in order to minimize noise and interference for CW reception?</h3>
+<p> 500 Hz</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-171">
+    <section class="slide-content"><h3 id="which-of-the-following-describes-the-common-meaning-of-the-term-repeater-offset-">Which of the following describes the common meaning of the term &quot;repeater offset&quot;?</h3>
+<p> The difference between the repeater’s transmit and receive frequencies</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-172">
+    <section class="slide-content"><h3 id="what-is-the-function-of-automatic-gain-control-or-agc-">What is the function of automatic gain control or AGC?</h3>
+<p> To keep received audio relatively constant</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-173">
+    <section class="slide-content"><h3 id="electrical-current-is-measured-in-which-of-the-following-units-">Electrical current is measured in which of the following units?</h3>
+<p> Amperes</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-174">
+    <section class="slide-content"><h3 id="electrical-power-is-measured-in-which-of-the-following-units-">Electrical power is measured in which of the following units?</h3>
+<p> Watts</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-175">
+    <section class="slide-content"><h3 id="what-is-the-name-for-the-flow-of-electrons-in-an-electric-circuit-">What is the name for the flow of electrons in an electric circuit?</h3>
+<p> Current</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-176">
+    <section class="slide-content"><h3 id="what-is-the-name-for-a-current-that-flows-only-in-one-direction-">What is the name for a current that flows only in one direction?</h3>
+<p> Direct current</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-177">
+    <section class="slide-content"><h3 id="how-much-voltage-does-a-mobile-transceiver-usually-require-">How much voltage does a mobile transceiver usually require?</h3>
+<p> About 12 volts</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-178">
+    <section class="slide-content"><h3 id="which-of-the-following-is-a-good-electrical-conductor-">Which of the following is a good electrical conductor?</h3>
+<p> Copper</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-179">
+    <section class="slide-content"><h3 id="which-of-the-following-is-a-good-electrical-insulator-">Which of the following is a good electrical insulator?</h3>
+<p> Glass</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-180">
+    <section class="slide-content"><h3 id="what-is-the-name-for-a-current-that-reverses-direction-on-a-regular-basis-">What is the name for a current that reverses direction on a regular basis?</h3>
+<p> Alternating current</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-181">
+    <section class="slide-content"><h3 id="which-term-describes-the-rate-at-which-electrical-energy-is-used-">Which term describes the rate at which electrical energy is used?</h3>
+<p> Power</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-182">
+    <section class="slide-content"><h3 id="what-is-the-basic-unit-of-electromotive-force-">What is the basic unit of electromotive force?</h3>
+<p> The volt</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-183">
+    <section class="slide-content"><h3 id="what-term-describes-the-number-of-times-per-second-that-an-alternating-current-reverses-direction-">What term describes the number of times per second that an alternating current reverses direction?</h3>
+<p> Frequency</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-184">
+    <section class="slide-content"><h3 id="how-many-milliamperes-is-1-5-amperes-">How many milliamperes is 1.5 amperes?</h3>
+<p> 1,500 milliamperes</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-185">
+    <section class="slide-content"><h3 id="what-is-another-way-to-specify-a-radio-signal-frequency-of-1-500-000-hertz-">What is another way to specify a radio signal frequency of 1,500,000 hertz?</h3>
+<p> 1500 kHz</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-186">
+    <section class="slide-content"><h3 id="how-many-volts-are-equal-to-one-kilovolt-">How many volts are equal to one kilovolt?</h3>
+<p> One thousand volts</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-187">
+    <section class="slide-content"><h3 id="how-many-volts-are-equal-to-one-microvolt-">How many volts are equal to one microvolt?</h3>
+<p> One one-millionth of a volt</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-188">
+    <section class="slide-content"><h3 id="which-of-the-following-is-equivalent-to-500-milliwatts-">Which of the following is equivalent to 500 milliwatts?</h3>
+<p> 0.5 watts</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-189">
+    <section class="slide-content"><h3 id="if-an-ammeter-calibrated-in-amperes-is-used-to-measure-a-3000-milliampere-current-what-reading-would-it-show-">If an ammeter calibrated in amperes is used to measure a 3000-milliampere current, what reading would it show?</h3>
+<p> 3 amperes</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-190">
+    <section class="slide-content"><h3 id="if-a-frequency-readout-calibrated-in-megahertz-shows-a-reading-of-3-525-mhz-what-would-it-show-if-it-were-calibrated-in-kilohertz-">If a frequency readout calibrated in megahertz shows a reading of 3.525 MHz, what would it show if it were calibrated in kilohertz?</h3>
+<p> 3525 kHz</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-191">
+    <section class="slide-content"><h3 id="how-many-microfarads-are-1-000-000-picofarads-">How many microfarads are 1,000,000 picofarads?</h3>
+<p> 1 microfarad</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-192">
+    <section class="slide-content"><h3 id="what-is-the-approximate-amount-of-change-measured-in-decibels-db-of-a-power-increase-from-5-watts-to-10-watts-">What is the approximate amount of change, measured in decibels (dB), of a power increase from 5 watts to 10 watts?</h3>
+<p> 3 dB</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-193">
+    <section class="slide-content"><h3 id="what-is-the-approximate-amount-of-change-measured-in-decibels-db-of-a-power-decrease-from-12-watts-to-3-watts-">What is the approximate amount of change, measured in decibels (dB), of a power decrease from 12 watts to 3 watts?</h3>
+<p> -6 dB</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-194">
+    <section class="slide-content"><h3 id="what-is-the-approximate-amount-of-change-measured-in-decibels-db-of-a-power-increase-from-20-watts-to-200-watts-">What is the approximate amount of change, measured in decibels (dB), of a power increase from 20 watts to 200 watts?</h3>
+<p> 10 dB</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-195">
+    <section class="slide-content"><h3 id="which-of-the-following-frequencies-is-equal-to-28-400-khz-">Which of the following frequencies is equal to 28,400 kHz?</h3>
+<p> 28.400 MHz</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-196">
+    <section class="slide-content"><h3 id="if-a-frequency-readout-shows-a-reading-of-2425-mhz-what-frequency-is-that-in-ghz-">If a frequency readout shows a reading of 2425 MHz, what frequency is that in GHz?</h3>
+<p> 2.425 GHz</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-197">
+    <section class="slide-content"><h3 id="what-is-the-ability-to-store-energy-in-an-electric-field-called-">What is the ability to store energy in an electric field called?</h3>
+<p> Capacitance</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-198">
+    <section class="slide-content"><h3 id="what-is-the-basic-unit-of-capacitance-">What is the basic unit of capacitance?</h3>
+<p> The farad</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-199">
+    <section class="slide-content"><h3 id="what-is-the-ability-to-store-energy-in-a-magnetic-field-called-">What is the ability to store energy in a magnetic field called?</h3>
+<p> Inductance</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-200">
+    <section class="slide-content"><h3 id="what-is-the-basic-unit-of-inductance-">What is the basic unit of inductance?</h3>
+<p> The henry</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-201">
+    <section class="slide-content"><h3 id="what-is-the-unit-of-frequency-">What is the unit of frequency?</h3>
+<p> Hertz</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-202">
+    <section class="slide-content"><h3 id="what-does-the-abbreviation-rf-refer-to-">What does the abbreviation “RF” refer to?</h3>
+<p> Radio frequency signals of all types</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-203">
+    <section class="slide-content"><h3 id="what-is-a-usual-name-for-electromagnetic-waves-that-travel-through-space-">What is a usual name for electromagnetic waves that travel through space?</h3>
+<p> Radio waves</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-204">
+    <section class="slide-content"><h3 id="what-is-the-formula-used-to-calculate-electrical-power-in-a-dc-circuit-">What is the formula used to calculate electrical power in a DC circuit?</h3>
+<p> Power (P) equals voltage (E) multiplied by current (I)</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-205">
+    <section class="slide-content"><h3 id="how-much-power-is-being-used-in-a-circuit-when-the-applied-voltage-is-13-8-volts-dc-and-the-current-is-10-amperes-">How much power is being used in a circuit when the applied voltage is 13.8 volts DC and the current is 10 amperes?</h3>
+<p> 138 watts</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-206">
+    <section class="slide-content"><h3 id="how-much-power-is-being-used-in-a-circuit-when-the-applied-voltage-is-12-volts-dc-and-the-current-is-2-5-amperes-">How much power is being used in a circuit when the applied voltage is 12 volts DC and the current is 2.5 amperes?</h3>
+<p> 30 watts</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-207">
+    <section class="slide-content"><h3 id="how-many-amperes-are-flowing-in-a-circuit-when-the-applied-voltage-is-12-volts-dc-and-the-load-is-120-watts-">How many amperes are flowing in a circuit when the applied voltage is 12 volts DC and the load is 120 watts?</h3>
+<p> 10 amperes</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-208">
+    <section class="slide-content"><h3 id="what-is-meant-by-the-term-impedance-">What is meant by the term impedance?</h3>
+<p> It is a measure of the opposition to AC current flow in a circuit</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-209">
+    <section class="slide-content"><h3 id="what-are-the-units-of-impedance-">What are the units of impedance?</h3>
+<p> Ohms</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-210">
+    <section class="slide-content"><h3 id="what-formula-is-used-to-calculate-current-in-a-circuit-">What formula is used to calculate current in a circuit?</h3>
+<p> Current (I) equals voltage (E) divided by resistance (R)</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-211">
+    <section class="slide-content"><h3 id="what-formula-is-used-to-calculate-voltage-in-a-circuit-">What formula is used to calculate voltage in a circuit?</h3>
+<p> Voltage (E) equals current (I) multiplied by resistance (R)</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-212">
+    <section class="slide-content"><h3 id="what-formula-is-used-to-calculate-resistance-in-a-circuit-">What formula is used to calculate resistance in a circuit?</h3>
+<p> Resistance (R) equals voltage (E) divided by current (I)</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-213">
+    <section class="slide-content"><h3 id="what-is-the-resistance-of-a-circuit-in-which-a-current-of-3-amperes-flows-through-a-resistor-connected-to-90-volts-">What is the resistance of a circuit in which a current of 3 amperes flows through a resistor connected to 90 volts?</h3>
+<p> 30 ohms</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-214">
+    <section class="slide-content"><h3 id="what-is-the-resistance-in-a-circuit-for-which-the-applied-voltage-is-12-volts-and-the-current-flow-is-1-5-amperes-">What is the resistance in a circuit for which the applied voltage is 12 volts and the current flow is 1.5 amperes?</h3>
+<p> 8 ohms</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-215">
+    <section class="slide-content"><h3 id="what-is-the-resistance-of-a-circuit-that-draws-4-amperes-from-a-12-volt-source-">What is the resistance of a circuit that draws 4 amperes from a 12-volt source?</h3>
+<p> 3 ohms</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-216">
+    <section class="slide-content"><h3 id="what-is-the-current-flow-in-a-circuit-with-an-applied-voltage-of-120-volts-and-a-resistance-of-80-ohms-">What is the current flow in a circuit with an applied voltage of 120 volts and a resistance of 80 ohms?</h3>
+<p> 1.5 amperes</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-217">
+    <section class="slide-content"><h3 id="what-is-the-current-flowing-through-a-100-ohm-resistor-connected-across-200-volts-">What is the current flowing through a 100-ohm resistor connected across 200 volts?</h3>
+<p> 2 amperes</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-218">
+    <section class="slide-content"><h3 id="what-is-the-current-flowing-through-a-24-ohm-resistor-connected-across-240-volts-">What is the current flowing through a 24-ohm resistor connected across 240 volts?</h3>
+<p> 10 amperes</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-219">
+    <section class="slide-content"><h3 id="what-is-the-voltage-across-a-2-ohm-resistor-if-a-current-of-0-5-amperes-flows-through-it-">What is the voltage across a 2-ohm resistor if a current of 0.5 amperes flows through it?</h3>
+<p> 1 volt</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-220">
+    <section class="slide-content"><h3 id="what-is-the-voltage-across-a-10-ohm-resistor-if-a-current-of-1-ampere-flows-through-it-">What is the voltage across a 10-ohm resistor if a current of 1 ampere flows through it?</h3>
+<p> 10 volts</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-221">
+    <section class="slide-content"><h3 id="what-is-the-voltage-across-a-10-ohm-resistor-if-a-current-of-2-amperes-flows-through-it-">What is the voltage across a 10-ohm resistor if a current of 2 amperes flows through it?</h3>
+<p> 20 volts</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-222">
+    <section class="slide-content"><h3 id="what-electrical-component-is-used-to-oppose-the-flow-of-current-in-a-dc-circuit-">What electrical component is used to oppose the flow of current in a DC circuit?</h3>
+<p> Resistor</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-223">
+    <section class="slide-content"><h3 id="what-type-of-component-is-often-used-as-an-adjustable-volume-control-">What type of component is often used as an adjustable volume control?</h3>
+<p> Potentiometer</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-224">
+    <section class="slide-content"><h3 id="what-electrical-parameter-is-controlled-by-a-potentiometer-">What electrical parameter is controlled by a potentiometer?</h3>
+<p> Resistance</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-225">
+    <section class="slide-content"><h3 id="what-electrical-component-stores-energy-in-an-electric-field-">What electrical component stores energy in an electric field?</h3>
+<p> Capacitor</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-226">
+    <section class="slide-content"><h3 id="what-type-of-electrical-component-consists-of-two-or-more-conductive-surfaces-separated-by-an-insulator-">What type of electrical component consists of two or more conductive surfaces separated by an insulator?</h3>
+<p> Capacitor</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-227">
+    <section class="slide-content"><h3 id="what-type-of-electrical-component-stores-energy-in-a-magnetic-field-">What type of electrical component stores energy in a magnetic field?</h3>
+<p> Inductor</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-228">
+    <section class="slide-content"><h3 id="what-electrical-component-is-usually-composed-of-a-coil-of-wire-">What electrical component is usually composed of a coil of wire?</h3>
+<p> Inductor</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-229">
+    <section class="slide-content"><h3 id="what-electrical-component-is-used-to-connect-or-disconnect-electrical-circuits-">What electrical component is used to connect or disconnect electrical circuits?</h3>
+<p> Switch</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-230">
+    <section class="slide-content"><h3 id="what-electrical-component-is-used-to-protect-other-circuit-components-from-current-overloads-">What electrical component is used to protect other circuit components from current overloads?</h3>
+<p> Fuse</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-231">
+    <section class="slide-content"><h3 id="which-of-the-following-battery-types-is-rechargeable-">Which of the following battery types is rechargeable?</h3>
+<p> Nickel-metal hydride<br> Lithium-ion<br> Lead-acid gel-cell</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-232">
+    <section class="slide-content"><h3 id="which-of-the-following-battery-types-is-not-rechargeable-">Which of the following battery types is not rechargeable?</h3>
+<p> Carbon-zinc</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-233">
+    <section class="slide-content"><h3 id="what-class-of-electronic-components-is-capable-of-using-a-voltage-or-current-signal-to-control-current-flow-">What class of electronic components is capable of using a voltage or current signal to control current flow?</h3>
+<p> Transistors</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-234">
+    <section class="slide-content"><h3 id="what-electronic-component-allows-current-to-flow-in-only-one-direction-">What electronic component allows current to flow in only one direction?</h3>
+<p> Diode</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-235">
+    <section class="slide-content"><h3 id="which-of-these-components-can-be-used-as-an-electronic-switch-or-amplifier-">Which of these components can be used as an electronic switch or amplifier?</h3>
+<p> Transistor</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-236">
+    <section class="slide-content"><h3 id="which-of-the-following-components-can-be-made-of-three-layers-of-semiconductor-material-">Which of the following components can be made of three layers of semiconductor material?</h3>
+<p> Transistor</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-237">
+    <section class="slide-content"><h3 id="which-of-the-following-electronic-components-can-amplify-signals-">Which of the following electronic components can amplify signals?</h3>
+<p> Transistor</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-238">
+    <section class="slide-content"><h3 id="how-is-the-cathode-lead-of-a-semiconductor-diode-usually-identified-">How is the cathode lead of a semiconductor diode usually identified?</h3>
+<p> With a stripe</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-239">
+    <section class="slide-content"><h3 id="what-does-the-abbreviation-led-stand-for-">What does the abbreviation LED stand for?</h3>
+<p> Light Emitting Diode</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-240">
+    <section class="slide-content"><h3 id="what-does-the-abbreviation-fet-stand-for-">What does the abbreviation FET stand for?</h3>
+<p> Field Effect Transistor</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-241">
+    <section class="slide-content"><h3 id="what-are-the-names-of-the-two-electrodes-of-a-diode-">What are the names of the two electrodes of a diode?</h3>
+<p> Anode and cathode</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-242">
+    <section class="slide-content"><h3 id="what-are-the-three-electrodes-of-a-pnp-or-npn-transistor-">What are the three electrodes of a PNP or NPN transistor?</h3>
+<p> Emitter, base, and collector</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-243">
+    <section class="slide-content"><h3 id="what-at-are-the-three-electrodes-of-a-field-effect-transistor-">What at are the three electrodes of a field effect transistor?</h3>
+<p> Source, gate, and drain</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-244">
+    <section class="slide-content"><h3 id="what-is-the-term-that-describes-a-transistor-s-ability-to-amplify-a-signal-">What is the term that describes a transistor&#39;s ability to amplify a signal?</h3>
+<p> Gain</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-245">
+    <section class="slide-content"><h3 id="what-is-the-name-for-standardized-representations-of-components-in-an-electrical-wiring-diagram-">What is the name for standardized representations of components in an electrical wiring diagram?</h3>
+<p> Schematic symbols</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-246">
+    <section class="slide-content"><h3 id="what-is-component-1-in-figure-t1-">What is component 1 in figure T1?</h3>
+<p> Resistor</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-247">
+    <section class="slide-content"><h3 id="what-is-component-2-in-figure-t1-">What is component 2 in figure T1?</h3>
+<p> Transistor</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-248">
+    <section class="slide-content"><h3 id="what-is-component-3-in-figure-t1-">What is component 3 in figure T1?</h3>
+<p> Lamp</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-249">
+    <section class="slide-content"><h3 id="what-is-component-4-in-figure-t1-">What is component 4 in figure T1?</h3>
+<p> Battery</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-250">
+    <section class="slide-content"><h3 id="what-is-component-6-in-figure-t2-">What is component 6 in figure T2?</h3>
+<p> Capacitor</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-251">
+    <section class="slide-content"><h3 id="what-is-component-8-in-figure-t2-">What is component 8 in figure T2?</h3>
+<p> Light emitting diode</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-252">
+    <section class="slide-content"><h3 id="what-is-component-9-in-figure-t2-">What is component 9 in figure T2?</h3>
+<p> Variable resistor</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-253">
+    <section class="slide-content"><h3 id="what-is-component-4-in-figure-t2-">What is component 4 in figure T2?</h3>
+<p> Transformer</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-254">
+    <section class="slide-content"><h3 id="what-is-component-3-in-figure-t3-">What is component 3 in figure T3?</h3>
+<p> Variable inductor</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-255">
+    <section class="slide-content"><h3 id="what-is-component-4-in-figure-t3-">What is component 4 in figure T3?</h3>
+<p> Antenna</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-256">
+    <section class="slide-content"><h3 id="what-do-the-symbols-on-an-electrical-circuit-schematic-diagram-represent-">What do the symbols on an electrical circuit schematic diagram represent?</h3>
+<p> Electrical components</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-257">
+    <section class="slide-content"><h3 id="which-of-the-following-is-accurately-represented-in-electrical-circuit-schematic-diagrams-">Which of the following is accurately represented in electrical circuit schematic diagrams?</h3>
+<p> The way components are interconnected</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-258">
+    <section class="slide-content"><h3 id="which-of-the-following-devices-or-circuits-changes-an-alternating-current-into-a-varying-direct-current-signal-">Which of the following devices or circuits changes an alternating current into a varying direct current signal?</h3>
+<p> Rectifier</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-259">
+    <section class="slide-content"><h3 id="what-best-describes-a-relay-">What best describes a relay?</h3>
+<p> A switch controlled by an electromagnet</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-260">
+    <section class="slide-content"><h3 id="what-type-of-switch-is-represented-by-component-3-in-figure-t2-">What type of switch is represented by component 3 in figure T2?</h3>
+<p> Single-pole single-throw</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-261">
+    <section class="slide-content"><h3 id="which-of-the-following-can-be-used-to-display-signal-strength-on-a-numeric-scale-">Which of the following can be used to display signal strength on a numeric scale?</h3>
+<p> Meter</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-262">
+    <section class="slide-content"><h3 id="what-type-of-circuit-controls-the-amount-of-voltage-from-a-power-supply-">What type of circuit controls the amount of voltage from a power supply?</h3>
+<p> Regulator</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-263">
+    <section class="slide-content"><h3 id="what-component-is-commonly-used-to-change-120v-ac-house-current-to-a-lower-ac-voltage-for-other-uses-">What component is commonly used to change 120V AC house current to a lower AC voltage for other uses?</h3>
+<p> Transformer</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-264">
+    <section class="slide-content"><h3 id="which-of-the-following-is-commonly-used-as-a-visual-indicator-">Which of the following is commonly used as a visual indicator?</h3>
+<p> LED</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-265">
+    <section class="slide-content"><h3 id="which-of-the-following-is-used-together-with-an-inductor-to-make-a-tuned-circuit-">Which of the following is used together with an inductor to make a tuned circuit?</h3>
+<p> Capacitor</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-266">
+    <section class="slide-content"><h3 id="what-is-the-name-of-a-device-that-combines-several-semiconductors-and-other-components-into-one-package-">What is the name of a device that combines several semiconductors and other components into one package?</h3>
+<p> Integrated circuit</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-267">
+    <section class="slide-content"><h3 id="what-is-the-function-of-component-2-in-figure-t1-">What is the function of component 2 in Figure T1?</h3>
+<p> Control the flow of current</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-268">
+    <section class="slide-content"><h3 id="what-is-a-simple-resonant-or-tuned-circuit-">What is a simple resonant or tuned circuit?</h3>
+<p> An inductor and a capacitor connected in series or parallel to form a filter</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-269">
+    <section class="slide-content"><h3 id="which-of-the-following-is-a-common-reason-to-use-shielded-wire-">Which of the following is a common reason to use shielded wire?</h3>
+<p> To prevent coupling of unwanted signals to or from the wire</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-270">
+    <section class="slide-content"><h3 id="which-term-describes-the-ability-of-a-receiver-to-detect-the-presence-of-a-signal-">Which term describes the ability of a receiver to detect the presence of a signal?</h3>
+<p> Sensitivity</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-271">
+    <section class="slide-content"><h3 id="what-is-a-transceiver-">What is a transceiver?</h3>
+<p> A unit combining the functions of a transmitter and a receiver</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-272">
+    <section class="slide-content"><h3 id="which-of-the-following-is-used-to-convert-a-radio-signal-from-one-frequency-to-another-">Which of the following is used to convert a radio signal from one frequency to another?</h3>
+<p> Mixer</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-273">
+    <section class="slide-content"><h3 id="which-term-describes-the-ability-of-a-receiver-to-discriminate-between-multiple-signals-">Which term describes the ability of a receiver to discriminate between multiple signals?</h3>
+<p> Selectivity</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-274">
+    <section class="slide-content"><h3 id="what-is-the-name-of-a-circuit-that-generates-a-signal-of-a-desired-frequency-">What is the name of a circuit that generates a signal of a desired frequency?</h3>
+<p> Oscillator</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-275">
+    <section class="slide-content"><h3 id="what-device-takes-the-output-of-a-low-powered-28-mhz-ssb-exciter-and-produces-a-222-mhz-output-signal-">What device takes the output of a low-powered 28 MHz SSB exciter and produces a 222 MHz output signal?</h3>
+<p> Transverter</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-276">
+    <section class="slide-content"><h3 id="what-is-meant-by-term-ptt-">What is meant by term “PTT”?</h3>
+<p> The push to talk function which switches between receive and transmit</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-277">
+    <section class="slide-content"><h3 id="which-of-the-following-describes-combining-speech-with-an-rf-carrier-signal-">Which of the following describes combining speech with an RF carrier signal?-</h3>
+<p> Modulation</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-278">
+    <section class="slide-content"><h3 id="which-of-the-following-devices-is-most-useful-for-vhf-weak-signal-communication-">Which of the following devices is most useful for VHF weak-signal communication?</h3>
+<p> A multi-mode VHF transceiver</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-279">
+    <section class="slide-content"><h3 id="what-device-increases-the-low-power-output-from-a-handheld-transceiver-">What device increases the low-power output from a handheld transceiver?</h3>
+<p> An RF power amplifier</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-280">
+    <section class="slide-content"><h3 id="where-is-an-rf-preamplifier-installed-">Where is an RF preamplifier installed?</h3>
+<p> Between the antenna and receiver</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-281">
+    <section class="slide-content"><h3 id="what-can-you-do-if-you-are-told-your-fm-handheld-or-mobile-transceiver-is-over-deviating-">What can you do if you are told your FM handheld or mobile transceiver is over-deviating?</h3>
+<p> Talk farther away from the microphone</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-282">
+    <section class="slide-content"><h3 id="what-would-cause-a-broadcast-am-or-fm-radio-to-receive-an-amateur-radio-transmission-unintentionally-">What would cause a broadcast AM or FM radio to receive an amateur radio transmission unintentionally?</h3>
+<p> The receiver is unable to reject strong signals outside the AM or FM band</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-283">
+    <section class="slide-content"><h3 id="which-of-the-following-may-be-a-cause-of-radio-frequency-interference-">Which of the following may be a cause of radio frequency interference?</h3>
+<p> Fundamental overload<br> Harmonics<br> Spurious emissions</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-284">
+    <section class="slide-content"><h3 id="which-of-the-following-is-a-way-to-reduce-or-eliminate-interference-by-an-amateur-transmitter-to-a-nearby-telephone-">Which of the following is a way to reduce or eliminate interference by an amateur transmitter to a nearby telephone?</h3>
+<p> Put a RF filter on the telephone</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-285">
+    <section class="slide-content"><h3 id="how-can-overload-of-a-non-amateur-radio-or-tv-receiver-by-an-amateur-signal-be-reduced-or-eliminated-">How can overload of a non-amateur radio or TV receiver by an amateur signal be reduced or eliminated?</h3>
+<p> Block the amateur signal with a filter at the antenna input of the affected receiver</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-286">
+    <section class="slide-content"><h3 id="which-of-the-following-actions-should-you-take-if-a-neighbor-tells-you-that-your-station-s-transmissions-are-interfering-with-their-radio-or-tv-reception-">Which of the following actions should you take if a neighbor tells you that your station’s transmissions are interfering with their radio or TV reception?</h3>
+<p> Make sure that your station is functioning properly and that it does not cause interference to your own radio or television when it is tuned to the same channel</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-287">
+    <section class="slide-content"><h3 id="which-of-the-following-may-be-useful-in-correcting-a-radio-frequency-interference-problem-">Which of the following may be useful in correcting a radio frequency interference problem?</h3>
+<p> Snap-on ferrite chokes<br> Low-pass and high-pass filters<br> Band-reject and band-pass filters</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-288">
+    <section class="slide-content"><h3 id="what-should-you-do-if-something-in-a-neighbor-s-home-is-causing-harmful-interference-to-your-amateur-station-">What should you do if something in a neighbor’s home is causing harmful interference to your amateur station?</h3>
+<p> Work with your neighbor to identify the offending device<br> Politely inform your neighbor about the rules that prohibit the use of devices which cause interference<br> Check your station and make sure it meets the standards of good amateur practice</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-289">
+    <section class="slide-content"><h3 id="what-is-a-part-15-device-">What is a Part 15 device?</h3>
+<p> An unlicensed device that may emit low powered radio signals on frequencies used by a licensed service</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-290">
+    <section class="slide-content"><h3 id="what-might-be-the-problem-if-you-receive-a-report-that-your-audio-signal-through-the-repeater-is-distorted-or-unintelligible-">What might be the problem if you receive a report that your audio signal through the repeater is distorted or unintelligible?</h3>
+<p> Your transmitter may be slightly off frequency<br> Your batteries may be running low<br> You could be in a bad location</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-291">
+    <section class="slide-content"><h3 id="what-is-a-symptom-of-rf-feedback-in-a-transmitter-or-transceiver-">What is a symptom of RF feedback in a transmitter or transceiver?</h3>
+<p> Reports of garbled, distorted, or unintelligible transmissions</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-292">
+    <section class="slide-content"><h3 id="what-might-be-the-first-step-to-resolve-cable-tv-interference-from-your-ham-radio-transmission-">What might be the first step to resolve cable TV interference from your ham radio transmission?</h3>
+<p> Be sure all TV coaxial connectors are installed properly</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-293">
+    <section class="slide-content"><h3 id="what-is-the-primary-purpose-of-a-dummy-load-">What is the primary purpose of a dummy load?</h3>
+<p> To prevent the radiation of signals when making tests</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-294">
+    <section class="slide-content"><h3 id="which-of-the-following-instruments-can-be-used-to-determine-if-an-antenna-is-resonant-at-the-desired-operating-frequency-">Which of the following instruments can be used to determine if an antenna is resonant at the desired operating frequency?</h3>
+<p> An antenna analyzer</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-295">
+    <section class="slide-content"><h3 id="what-in-general-terms-is-standing-wave-ratio-swr-">What, in general terms, is standing wave ratio (SWR)?</h3>
+<p> A measure of how well a load is matched to a transmission line</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-296">
+    <section class="slide-content"><h3 id="what-reading-on-an-swr-meter-indicates-a-perfect-impedance-match-between-the-antenna-and-the-feed-line-">What reading on an SWR meter indicates a perfect impedance match between the antenna and the feed line?</h3>
+<p> 1 to 1</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-297">
+    <section class="slide-content"><h3 id="what-is-the-approximate-swr-value-above-which-the-protection-circuits-in-most-solid-state-transmitters-begin-to-reduce-transmitter-power-">What is the approximate SWR value above which the protection circuits in most solid-state transmitters begin to reduce transmitter power?</h3>
+<p> 2 to 1</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-298">
+    <section class="slide-content"><h3 id="what-does-an-swr-reading-of-4-1-indicate-">What does an SWR reading of 4:1 indicate?</h3>
+<p> Impedance mismatch</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-299">
+    <section class="slide-content"><h3 id="what-happens-to-power-lost-in-a-feed-line-">What happens to power lost in a feed line?</h3>
+<p> It is converted into heat</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-300">
+    <section class="slide-content"><h3 id="what-instrument-other-than-an-swr-meter-could-you-use-to-determine-if-a-feed-line-and-antenna-are-properly-matched-">What instrument other than an SWR meter could you use to determine if a feed line and antenna are properly matched?</h3>
+<p> Directional wattmeter</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-301">
+    <section class="slide-content"><h3 id="which-of-the-following-is-the-most-common-cause-for-failure-of-coaxial-cables-">Which of the following is the most common cause for failure of coaxial cables?</h3>
+<p> Moisture contamination</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-302">
+    <section class="slide-content"><h3 id="why-should-the-outer-jacket-of-coaxial-cable-be-resistant-to-ultraviolet-light-">Why should the outer jacket of coaxial cable be resistant to ultraviolet light?</h3>
+<p> Ultraviolet light can damage the jacket and allow water to enter the cable</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-303">
+    <section class="slide-content"><h3 id="what-is-a-disadvantage-of-air-core-coaxial-cable-when-compared-to-foam-or-solid-dielectric-types-">What is a disadvantage of air core coaxial cable when compared to foam or solid dielectric types?</h3>
+<p> It requires special techniques to prevent water absorption</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-304">
+    <section class="slide-content"><h3 id="which-of-the-following-is-a-common-use-of-coaxial-cable-">Which of the following is a common use of coaxial cable?</h3>
+<p> Carrying RF signals between a radio and antenna</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-305">
+    <section class="slide-content"><h3 id="what-does-a-dummy-load-consist-of-">What does a dummy load consist of?</h3>
+<p> A non-inductive resistor and a heat sink</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-306">
+    <section class="slide-content"><h3 id="which-instrument-would-you-use-to-measure-electric-potential-or-electromotive-force-">Which instrument would you use to measure electric potential or electromotive force?</h3>
+<p> A voltmeter</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-307">
+    <section class="slide-content"><h3 id="what-is-the-correct-way-to-connect-a-voltmeter-to-a-circuit-">What is the correct way to connect a voltmeter to a circuit?</h3>
+<p> In parallel with the circuit</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-308">
+    <section class="slide-content"><h3 id="how-is-an-ammeter-usually-connected-to-a-circuit-">How is an ammeter usually connected to a circuit?</h3>
+<p> In series with the circuit</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-309">
+    <section class="slide-content"><h3 id="which-instrument-is-used-to-measure-electric-current-">Which instrument is used to measure electric current?</h3>
+<p> An ammeter</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-310">
+    <section class="slide-content"><h3 id="what-instrument-is-used-to-measure-resistance-">What instrument is used to measure resistance?</h3>
+<p> An ohmmeter</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-311">
+    <section class="slide-content"><h3 id="which-of-the-following-might-damage-a-multimeter-">Which of the following might damage a multimeter?</h3>
+<p> Attempting to measure voltage when using the resistance setting</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-312">
+    <section class="slide-content"><h3 id="which-of-the-following-measurements-are-commonly-made-using-a-multimeter-">Which of the following measurements are commonly made using a multimeter?</h3>
+<p> Voltage and resistance</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-313">
+    <section class="slide-content"><h3 id="which-of-the-following-types-of-solder-is-best-for-radio-and-electronic-use-">Which of the following types of solder is best for radio and electronic use?</h3>
+<p> Rosin-core solder</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-314">
+    <section class="slide-content"><h3 id="what-is-the-characteristic-appearance-of-a-cold-solder-joint-">What is the characteristic appearance of a cold solder joint?</h3>
+<p> A grainy or dull surface</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-315">
+    <section class="slide-content"><h3 id="what-is-probably-happening-when-an-ohmmeter-connected-across-an-unpowered-circuit-initially-indicates-a-low-resistance-and-then-shows-increasing-resistance-with-time-">What is probably happening when an ohmmeter, connected across an unpowered circuit, initially indicates a low resistance and then shows increasing resistance with time?</h3>
+<p> The circuit contains a large capacitor</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-316">
+    <section class="slide-content"><h3 id="which-of-the-following-precautions-should-be-taken-when-measuring-circuit-resistance-with-an-ohmmeter-">Which of the following precautions should be taken when measuring circuit resistance with an ohmmeter?</h3>
+<p> Ensure that the circuit is not powered</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-317">
+    <section class="slide-content"><h3 id="which-of-the-following-precautions-should-be-taken-when-measuring-high-voltages-with-a-voltmeter-">Which of the following precautions should be taken when measuring high voltages with a voltmeter?</h3>
+<p> Ensure that the voltmeter and leads are rated for use at the voltages to be measured</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-318">
+    <section class="slide-content"><h3 id="which-of-the-following-is-a-form-of-amplitude-modulation-">Which of the following is a form of amplitude modulation?</h3>
+<p> Single sideband</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-319">
+    <section class="slide-content"><h3 id="what-type-of-modulation-is-most-commonly-used-for-vhf-packet-radio-transmissions-">What type of modulation is most commonly used for VHF packet radio transmissions?</h3>
+<p> FM</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-320">
+    <section class="slide-content"><h3 id="which-type-of-voice-mode-is-most-often-used-for-long-distance-weak-signal-contacts-on-the-vhf-and-uhf-bands-">Which type of voice mode is most often used for long-distance (weak signal) contacts on the VHF and UHF bands?</h3>
+<p> SSB</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-321">
+    <section class="slide-content"><h3 id="which-type-of-modulation-is-most-commonly-used-for-vhf-and-uhf-voice-repeaters-">Which type of modulation is most commonly used for VHF and UHF voice repeaters?</h3>
+<p> FM</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-322">
+    <section class="slide-content"><h3 id="which-of-the-following-types-of-emission-has-the-narrowest-bandwidth-">Which of the following types of emission has the narrowest bandwidth?</h3>
+<p> CW</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-323">
+    <section class="slide-content"><h3 id="which-sideband-is-normally-used-for-10-meter-hf-vhf-and-uhf-single-sideband-communications-">Which sideband is normally used for 10 meter HF, VHF and UHF single-sideband communications?</h3>
+<p> Upper sideband</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-324">
+    <section class="slide-content"><h3 id="what-is-the-primary-advantage-of-single-sideband-over-fm-for-voice-transmissions-">What is the primary advantage of single sideband over FM for voice transmissions?</h3>
+<p> SSB signals have narrower bandwidth</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-325">
+    <section class="slide-content"><h3 id="what-is-the-approximate-bandwidth-of-a-single-sideband-voice-signal-">What is the approximate bandwidth of a single sideband voice signal?</h3>
+<p> 3 kHz</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-326">
+    <section class="slide-content"><h3 id="what-is-the-approximate-bandwidth-of-a-vhf-repeater-fm-phone-signal-">What is the approximate bandwidth of a VHF repeater FM phone signal?</h3>
+<p> Between 10 and 15 kHz</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-327">
+    <section class="slide-content"><h3 id="what-is-the-typical-bandwidth-of-analog-fast-scan-tv-transmissions-on-the-70-cm-band-">What is the typical bandwidth of analog fast-scan TV transmissions on the 70 cm band?</h3>
+<p> About 6 MHz</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-328">
+    <section class="slide-content"><h3 id="what-is-the-approximate-maximum-bandwidth-required-to-transmit-a-cw-signal-">What is the approximate maximum bandwidth required to transmit a CW signal?</h3>
+<p> 150 Hz</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-329">
+    <section class="slide-content"><h3 id="who-may-be-the-control-operator-of-a-station-communicating-through-an-amateur-satellite-or-space-station-">Who may be the control operator of a station communicating through an amateur satellite or space station?</h3>
+<p> Any amateur whose license privileges allow them to transmit on the satellite uplink frequency</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-330">
+    <section class="slide-content"><h3 id="how-much-transmitter-power-should-be-used-on-the-uplink-frequency-of-an-amateur-satellite-or-space-station-">How much transmitter power should be used on the uplink frequency of an amateur satellite or space station?</h3>
+<p> The minimum amount of power needed to complete the contact</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-331">
+    <section class="slide-content"><h3 id="which-of-the-following-are-provided-by-satellite-tracking-programs-">Which of the following are provided by satellite tracking programs?</h3>
+<p> All of these answers are correct</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-332">
+    <section class="slide-content"><h3 id="which-amateur-stations-may-make-contact-with-an-amateur-station-on-the-international-space-station-using-2-meter-and-70-cm-band-amateur-radio-frequencies-">Which amateur stations may make contact with an amateur station on the International Space Station using 2 meter and 70 cm band amateur radio frequencies?</h3>
+<p> Any amateur holding a Technician or higher class license</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-333">
+    <section class="slide-content"><h3 id="what-is-a-satellite-beacon-">What is a satellite beacon?</h3>
+<p> A transmission from a space station that contains information about a satellite</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-334">
+    <section class="slide-content"><h3 id="which-of-the-following-are-inputs-to-a-satellite-tracking-program-">Which of the following are inputs to a satellite tracking program?</h3>
+<p> The Keplerian elements</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-335">
+    <section class="slide-content"><h3 id="with-regard-to-satellite-communications-what-is-doppler-shift-">With regard to satellite communications, what is Doppler shift?</h3>
+<p> An observed change in signal frequency caused by relative motion between the satellite and the earth station</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-336">
+    <section class="slide-content"><h3 id="what-is-meant-by-the-statement-that-a-satellite-is-operating-in-mode-u-v-">What is meant by the statement that a satellite is operating in mode U/V?</h3>
+<p> The satellite uplink is in the 70 cm band and the downlink is in the 2 meter band</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-337">
+    <section class="slide-content"><h3 id="what-causes-spin-fading-when-referring-to-satellite-signals-">What causes spin fading when referring to satellite signals?</h3>
+<p> Rotation of the satellite and its antennas</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-338">
+    <section class="slide-content"><h3 id="what-do-the-initials-leo-tell-you-about-an-amateur-satellite-">What do the initials LEO tell you about an amateur satellite?</h3>
+<p> The satellite is in a Low Earth Orbit</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-339">
+    <section class="slide-content"><h3 id="what-is-a-commonly-used-method-of-sending-signals-to-and-from-a-digital-satellite-">What is a commonly used method of sending signals to and from a digital satellite?</h3>
+<p> FM Packet</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-340">
+    <section class="slide-content"><h3 id="which-of-the-following-methods-is-used-to-locate-sources-of-noise-interference-or-jamming-">Which of the following methods is used to locate sources of noise interference or jamming?</h3>
+<p> Radio direction finding</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-341">
+    <section class="slide-content"><h3 id="which-of-these-items-would-be-useful-for-a-hidden-transmitter-hunt-">Which of these items would be useful for a hidden transmitter hunt?</h3>
+<p> A directional antenna</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-342">
+    <section class="slide-content"><h3 id="what-popular-operating-activity-involves-contacting-as-many-stations-as-possible-during-a-specified-period-of-time-">What popular operating activity involves contacting as many stations as possible during a specified period of time?</h3>
+<p> Contesting</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-343">
+    <section class="slide-content"><h3 id="which-of-the-following-is-good-procedure-when-contacting-another-station-in-a-radio-contest-">Which of the following is good procedure when contacting another station in a radio contest?</h3>
+<p> Send only the minimum information needed for proper identification and the contest exchange</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-344">
+    <section class="slide-content"><h3 id="what-is-a-grid-locator-">What is a grid locator?</h3>
+<p> A letter-number designator assigned to a geographic location</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-345">
+    <section class="slide-content"><h3 id="how-is-access-to-an-irlp-node-accomplished-">How is access to an IRLP node accomplished?</h3>
+<p> By using DTMF signals</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-346">
+    <section class="slide-content"><h3 id="what-is-the-maximum-power-allowed-when-transmitting-telecommand-signals-to-radio-controlled-models-">What is the maximum power allowed when transmitting telecommand signals to radio controlled models?</h3>
+<p> 1 watt</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-347">
+    <section class="slide-content"><h3 id="what-is-required-in-place-of-on-air-station-identification-when-sending-signals-to-a-radio-control-model-using-amateur-frequencies-">What is required in place of on-air station identification when sending signals to a radio control model using amateur frequencies?</h3>
+<p> A label indicating the licensee’s name, call sign and address must be affixed to the transmitter</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-348">
+    <section class="slide-content"><h3 id="how-might-you-obtain-a-list-of-active-nodes-that-use-voip-">How might you obtain a list of active nodes that use VoIP?</h3>
+<p> From a repeater directory</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-349">
+    <section class="slide-content"><h3 id="how-do-you-select-a-specific-irlp-node-when-using-a-portable-transceiver-">How do you select a specific IRLP node when using a portable transceiver?</h3>
+<p> Use the keypad to transmit the IRLP node ID</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-350">
+    <section class="slide-content"><h3 id="what-name-is-given-to-an-amateur-radio-station-that-is-used-to-connect-other-amateur-stations-to-the-internet-">What name is given to an amateur radio station that is used to connect other amateur stations to the Internet?</h3>
+<p> A gateway</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-351">
+    <section class="slide-content"><h3 id="what-is-meant-by-voice-over-internet-protocol-voip-as-used-in-amateur-radio-">What is meant by Voice Over Internet Protocol (VoIP) as used in amateur radio?</h3>
+<p> A method of delivering voice communications over the Internet using digital techniques</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-352">
+    <section class="slide-content"><h3 id="what-is-the-internet-radio-linking-project-irlp-">What is the Internet Radio Linking Project (IRLP)?</h3>
+<p> A technique to connect amateur radio systems, such as repeaters, via the Internet using Voice Over Internet Protocol</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-353">
+    <section class="slide-content"><h3 id="which-of-the-following-is-an-example-of-a-digital-communications-method-">Which of the following is an example of a digital communications method?</h3>
+<p> Packet<br> PSK31<br> MFSK</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-354">
+    <section class="slide-content"><h3 id="what-does-the-term-aprs-mean-">What does the term “APRS” mean?</h3>
+<p> Automatic Packet Reporting System</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-355">
+    <section class="slide-content"><h3 id="which-of-the-following-devices-provides-data-to-the-transmitter-when-sending-automatic-position-reports-from-a-mobile-amateur-radio-station-">Which of the following devices provides data to the transmitter when sending automatic position reports from a mobile amateur radio station?</h3>
+<p> A Global Positioning System receiver</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-356">
+    <section class="slide-content"><h3 id="what-type-of-transmission-is-indicated-by-the-term-ntsc-">What type of transmission is indicated by the term NTSC?</h3>
+<p> An analog fast scan color TV signal</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-357">
+    <section class="slide-content"><h3 id="which-of-the-following-is-an-application-of-aprs-automatic-packet-reporting-system-">Which of the following is an application of APRS (Automatic Packet Reporting System)?</h3>
+<p> Providing real time tactical digital communications in conjunction with a map showing the locations of stations</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-358">
+    <section class="slide-content"><h3 id="what-does-the-abbreviation-psk-mean-">What does the abbreviation PSK mean?</h3>
+<p> Phase Shift Keying</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-359">
+    <section class="slide-content"><h3 id="what-is-psk31-">What is PSK31?</h3>
+<p> A low-rate data transmission mode</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-360">
+    <section class="slide-content"><h3 id="which-of-the-following-may-be-included-in-packet-transmissions-">Which of the following may be included in packet transmissions?</h3>
+<p> A check sum which permits error detection<br> A header which contains the call sign of the station to which the information is being sent<br> Automatic repeat request in case of error</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-361">
+    <section class="slide-content"><h3 id="what-code-is-used-when-sending-cw-in-the-amateur-bands-">What code is used when sending CW in the amateur bands?</h3>
+<p> International Morse</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-362">
+    <section class="slide-content"><h3 id="which-of-the-following-can-be-used-to-transmit-cw-in-the-amateur-bands-">Which of the following can be used to transmit CW in the amateur bands?</h3>
+<p> Straight Key<br> Electronic Keyer<br> Computer Keyboard</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-363">
+    <section class="slide-content"><h3 id="what-is-an-arq-transmission-system-">What is an ARQ transmission system?</h3>
+<p> A digital scheme whereby the receiving station detects errors and sends a request to the sending station to retransmit the information</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-364">
+    <section class="slide-content"><h3 id="what-is-a-beam-antenna-">What is a beam antenna?</h3>
+<p> An antenna that concentrates signals in one direction</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-365">
+    <section class="slide-content"><h3 id="which-of-the-following-is-true-regarding-vertical-antennas-">Which of the following is true regarding vertical antennas?</h3>
+<p> The electric field is perpendicular to the Earth</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-366">
+    <section class="slide-content"><h3 id="which-of-the-following-describes-a-simple-dipole-mounted-so-the-conductor-is-parallel-to-the-earth-s-surface-">Which of the following describes a simple dipole mounted so the conductor is parallel to the Earth&#39;s surface?</h3>
+<p> A horizontally polarized antenna</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-367">
+    <section class="slide-content"><h3 id="what-is-a-disadvantage-of-the-rubber-duck-antenna-supplied-with-most-handheld-radio-transceivers-">What is a disadvantage of the “rubber duck” antenna supplied with most handheld radio transceivers?</h3>
+<p> It does not transmit or receive as effectively as a full-sized antenna</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-368">
+    <section class="slide-content"><h3 id="how-would-you-change-a-dipole-antenna-to-make-it-resonant-on-a-higher-frequency-">How would you change a dipole antenna to make it resonant on a higher frequency?</h3>
+<p> Shorten it</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-369">
+    <section class="slide-content"><h3 id="what-type-of-antennas-are-the-quad-yagi-and-dish-">What type of antennas are the quad, Yagi, and dish?</h3>
+<p> Directional antennas</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-370">
+    <section class="slide-content"><h3 id="what-is-a-good-reason-not-to-use-a-rubber-duck-antenna-inside-your-car-">What is a good reason not to use a “rubber duck” antenna inside your car?</h3>
+<p> Signals can be significantly weaker than when it is outside of the vehicle</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-371">
+    <section class="slide-content"><h3 id="what-is-the-approximate-length-in-inches-of-a-quarter-wavelength-vertical-antenna-for-146-mhz-">What is the approximate length, in inches, of a quarter-wavelength vertical antenna for 146 MHz?</h3>
+<p> 19</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-372">
+    <section class="slide-content"><h3 id="what-is-the-approximate-length-in-inches-of-a-6-meter-1-2-wavelength-wire-dipole-antenna-">What is the approximate length, in inches, of a 6 meter 1/2-wavelength wire dipole antenna?</h3>
+<p> 112</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-373">
+    <section class="slide-content"><h3 id="in-which-direction-is-the-radiation-strongest-from-a-half-wave-dipole-antenna-in-free-space-">In which direction is the radiation strongest from a half-wave dipole antenna in free space?</h3>
+<p> Broadside to the antenna</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-374">
+    <section class="slide-content"><h3 id="what-is-meant-by-the-gain-of-an-antenna-">What is meant by the gain of an antenna?</h3>
+<p> The increase in signal strength in a specified direction when compared to a reference antenna</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-375">
+    <section class="slide-content"><h3 id="what-is-a-reason-to-use-a-properly-mounted-5-8-wavelength-antenna-for-vhf-or-uhf-mobile-service-">What is a reason to use a properly mounted 5/8 wavelength antenna for VHF or UHF mobile service?</h3>
+<p> It offers a lower angle of radiation and more gain than a 1/4 wavelength antenna and usually provides improved coverage</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-376">
+    <section class="slide-content"><h3 id="why-are-vhf-or-uhf-mobile-antennas-often-mounted-in-the-center-of-the-vehicle-roof-">Why are VHF or UHF mobile antennas often mounted in the center of the vehicle roof?</h3>
+<p> A roof mounted antenna normally provides the most uniform radiation pattern</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-377">
+    <section class="slide-content"><h3 id="which-of-the-following-terms-describes-a-type-of-loading-when-referring-to-an-antenna-">Which of the following terms describes a type of loading when referring to an antenna?</h3>
+<p> Inserting an inductor in the radiating portion of the antenna to make it electrically longer</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-378">
+    <section class="slide-content"><h3 id="why-is-it-important-to-have-a-low-swr-in-an-antenna-system-that-uses-coaxial-cable-feed-line-">Why is it important to have a low SWR in an antenna system that uses coaxial cable feed line?</h3>
+<p> To allow the efficient transfer of power and reduce losses</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-379">
+    <section class="slide-content"><h3 id="what-is-the-impedance-of-the-most-commonly-used-coaxial-cable-in-typical-amateur-radio-installations-">What is the impedance of the most commonly used coaxial cable in typical amateur radio installations?</h3>
+<p> 50 ohms</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-380">
+    <section class="slide-content"><h3 id="why-is-coaxial-cable-used-more-often-than-any-other-feed-line-for-amateur-radio-antenna-systems-">Why is coaxial cable used more often than any other feed line for amateur radio antenna systems?</h3>
+<p> It is easy to use and requires few special installation considerations</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-381">
+    <section class="slide-content"><h3 id="what-does-an-antenna-tuner-do-">What does an antenna tuner do?</h3>
+<p> It matches the antenna system impedance to the transceiver&#39;s output impedance</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-382">
+    <section class="slide-content"><h3 id="what-generally-happens-as-the-frequency-of-a-signal-passing-through-coaxial-cable-is-increased-">What generally happens as the frequency of a signal passing through coaxial cable is increased?</h3>
+<p> The loss increases</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-383">
+    <section class="slide-content"><h3 id="which-of-the-following-connectors-is-most-suitable-for-frequencies-above-400-mhz-">Which of the following connectors is most suitable for frequencies above 400 MHz?</h3>
+<p> A Type N connector</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-384">
+    <section class="slide-content"><h3 id="which-of-the-following-is-true-of-pl-259-type-coax-connectors-">Which of the following is true of PL-259 type coax connectors?</h3>
+<p> They are commonly used at HF frequencies</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-385">
+    <section class="slide-content"><h3 id="why-should-coax-connectors-exposed-to-the-weather-be-sealed-against-water-intrusion-">Why should coax connectors exposed to the weather be sealed against water intrusion?</h3>
+<p> To prevent an increase in feed line loss</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-386">
+    <section class="slide-content"><h3 id="what-might-cause-erratic-changes-in-swr-readings-">What might cause erratic changes in SWR readings?</h3>
+<p> A loose connection in an antenna or a feed line</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-387">
+    <section class="slide-content"><h3 id="what-electrical-difference-exists-between-the-smaller-rg-58-and-larger-rg-8-coaxial-cables-">What electrical difference exists between the smaller RG-58 and larger RG-8 coaxial cables?</h3>
+<p> RG-8 cable has less loss at a given frequency</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-388">
+    <section class="slide-content"><h3 id="which-of-the-following-types-of-feed-line-has-the-lowest-loss-at-vhf-and-uhf-">Which of the following types of feed line has the lowest loss at VHF and UHF?</h3>
+<p> Air-insulated hard line</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-389">
+    <section class="slide-content"><h3 id="which-of-the-following-is-a-safety-hazard-of-a-12-volt-storage-battery-">Which of the following is a safety hazard of a 12-volt storage battery?</h3>
+<p> Shorting the terminals can cause burns, fire, or an explosion</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-390">
+    <section class="slide-content"><h3 id="how-does-current-flowing-through-the-body-cause-a-health-hazard-">How does current flowing through the body cause a health hazard?</h3>
+<p> By heating tissue<br> It disrupts the electrical functions of cells<br> It causes involuntary muscle contractions</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-391">
+    <section class="slide-content"><h3 id="what-is-connected-to-the-green-wire-in-a-three-wire-electrical-ac-plug-">What is connected to the green wire in a three-wire electrical AC plug?</h3>
+<p> Safety ground</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-392">
+    <section class="slide-content"><h3 id="what-is-the-purpose-of-a-fuse-in-an-electrical-circuit-">What is the purpose of a fuse in an electrical circuit?</h3>
+<p> To interrupt power in case of overload</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-393">
+    <section class="slide-content"><h3 id="why-is-it-unwise-to-install-a-20-ampere-fuse-in-the-place-of-a-5-ampere-fuse-">Why is it unwise to install a 20-ampere fuse in the place of a 5-ampere fuse?</h3>
+<p> Excessive current could cause a fire</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-394">
+    <section class="slide-content"><h3 id="what-is-a-good-way-to-guard-against-electrical-shock-at-your-station-">What is a good way to guard against electrical shock at your station?</h3>
+<p> Use three-wire cords and plugs for all AC powered equipment<br> Connect all AC powered station equipment to a common safety ground<br> Use a circuit protected by a ground-fault interrupter</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-395">
+    <section class="slide-content"><h3 id="which-of-these-precautions-should-be-taken-when-installing-devices-for-lightning-protection-in-a-coaxial-cable-feed-line-">Which of these precautions should be taken when installing devices for lightning protection in a coaxial cable feed line?</h3>
+<p> Ground all of the protectors to a common plate which is in turn connected to an external ground</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-396">
+    <section class="slide-content"><h3 id="what-safety-equipment-should-always-be-included-in-home-built-equipment-that-is-powered-from-120v-ac-power-circuits-">What safety equipment should always be included in home-built equipment that is powered from 120V AC power circuits?</h3>
+<p> A fuse or circuit breaker in series with the AC hot conductor</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-397">
+    <section class="slide-content"><h3 id="what-kind-of-hazard-is-presented-by-a-conventional-12-volt-storage-battery-">What kind of hazard is presented by a conventional 12-volt storage battery?</h3>
+<p> Explosive gas can collect if not properly vented</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-398">
+    <section class="slide-content"><h3 id="what-can-happen-if-a-lead-acid-storage-battery-is-charged-or-discharged-too-quickly-">What can happen if a lead-acid storage battery is charged or discharged too quickly?</h3>
+<p> The battery could overheat and give off flammable gas or explode</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-399">
+    <section class="slide-content"><h3 id="what-kind-of-hazard-might-exist-in-a-power-supply-when-it-is-turned-off-and-disconnected-">What kind of hazard might exist in a power supply when it is turned off and disconnected?</h3>
+<p> You might receive an electric shock from the charged stored in large capacitors</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-400">
+    <section class="slide-content"><h3 id="when-should-members-of-a-tower-work-team-wear-a-hard-hat-and-safety-glasses-">When should members of a tower work team wear a hard hat and safety glasses?</h3>
+<p> At all times when any work is being done on the tower</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-401">
+    <section class="slide-content"><h3 id="what-is-a-good-precaution-to-observe-before-climbing-an-antenna-tower-">What is a good precaution to observe before climbing an antenna tower?</h3>
+<p> Put on a climbing harness and safety glasses</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-402">
+    <section class="slide-content"><h3 id="under-what-circumstances-is-it-safe-to-climb-a-tower-without-a-helper-or-observer-">Under what circumstances is it safe to climb a tower without a helper or observer?</h3>
+<p> Never</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-403">
+    <section class="slide-content"><h3 id="which-of-the-following-is-an-important-safety-precaution-to-observe-when-putting-up-an-antenna-tower-">Which of the following is an important safety precaution to observe when putting up an antenna tower?</h3>
+<p> Look for and stay clear of any overhead electrical wires</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-404">
+    <section class="slide-content"><h3 id="what-is-the-purpose-of-a-gin-pole-">What is the purpose of a gin pole?</h3>
+<p> To lift tower sections or antennas</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-405">
+    <section class="slide-content"><h3 id="what-is-the-minimum-safe-distance-from-a-power-line-to-allow-when-installing-an-antenna-">What is the minimum safe distance from a power line to allow when installing an antenna?</h3>
+<p> So that if the antenna falls unexpectedly, no part of it can come closer than 10 feet to the power wires</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-406">
+    <section class="slide-content"><h3 id="which-of-the-following-is-an-important-safety-rule-to-remember-when-using-a-crank-up-tower-">Which of the following is an important safety rule to remember when using a crank-up tower?</h3>
+<p> This type of tower must never be climbed unless it is in the fully retracted position</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-407">
+    <section class="slide-content"><h3 id="what-is-considered-to-be-a-proper-grounding-method-for-a-tower-">What is considered to be a proper grounding method for a tower?</h3>
+<p> Separate eight-foot long ground rods for each tower leg, bonded to the tower and each other</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-408">
+    <section class="slide-content"><h3 id="why-should-you-avoid-attaching-an-antenna-to-a-utility-pole-">Why should you avoid attaching an antenna to a utility pole?</h3>
+<p> The antenna could contact high-voltage power wires</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-409">
+    <section class="slide-content"><h3 id="which-of-the-following-is-true-concerning-grounding-conductors-used-for-lightning-protection-">Which of the following is true concerning grounding conductors used for lightning protection?</h3>
+<p> Sharp bends must be avoided</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-410">
+    <section class="slide-content"><h3 id="which-of-the-following-establishes-grounding-requirements-for-an-amateur-radio-tower-or-antenna-">Which of the following establishes grounding requirements for an amateur radio tower or antenna?</h3>
+<p> Local electrical codes</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-411">
+    <section class="slide-content"><h3 id="which-of-the-following-is-good-practice-when-installing-ground-wires-on-a-tower-for-lightning-protection-">Which of the following is good practice when installing ground wires on a tower for lightning protection?</h3>
+<p> Ensure that connections are short and direct</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-412">
+    <section class="slide-content"><h3 id="what-type-of-radiation-are-vhf-and-uhf-radio-signals-">What type of radiation are VHF and UHF radio signals?</h3>
+<p> Non-ionizing radiation</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-413">
+    <section class="slide-content"><h3 id="which-of-the-following-frequencies-has-the-lowest-value-for-maximum-permissible-exposure-limit-">Which of the following frequencies has the lowest value for Maximum Permissible Exposure limit?</h3>
+<p> 50 MHz</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-414">
+    <section class="slide-content"><h3 id="what-is-the-maximum-power-level-that-an-amateur-radio-station-may-use-at-vhf-frequencies-before-an-rf-exposure-evaluation-is-required-">What is the maximum power level that an amateur radio station may use at VHF frequencies before an RF exposure evaluation is required?</h3>
+<p> 50 watts PEP at the antenna</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-415">
+    <section class="slide-content"><h3 id="what-factors-affect-the-rf-exposure-of-people-near-an-amateur-station-antenna-">What factors affect the RF exposure of people near an amateur station antenna?</h3>
+<p> Frequency and power level of the RF field<br> Distance from the antenna to a person<br> Radiation pattern of the antenna</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-416">
+    <section class="slide-content"><h3 id="why-do-exposure-limits-vary-with-frequency-">Why do exposure limits vary with frequency?</h3>
+<p> The human body absorbs more RF energy at some frequencies than at others</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-417">
+    <section class="slide-content"><h3 id="which-of-the-following-is-an-acceptable-method-to-determine-that-your-station-complies-with-fcc-rf-exposure-regulations-">Which of the following is an acceptable method to determine that your station complies with FCC RF exposure regulations?</h3>
+<p> By calculation based on FCC OET Bulletin 65<br> By calculation based on computer modeling<br> By measurement of field strength using calibrated equipment</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-418">
+    <section class="slide-content"><h3 id="what-could-happen-if-a-person-accidentally-touched-your-antenna-while-you-were-transmitting-">What could happen if a person accidentally touched your antenna while you were transmitting?</h3>
+<p> They might receive a painful RF burn</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-419">
+    <section class="slide-content"><h3 id="which-of-the-following-actions-might-amateur-operators-take-to-prevent-exposure-to-rf-radiation-in-excess-of-fcc-supplied-limits-">Which of the following actions might amateur operators take to prevent exposure to RF radiation in excess of FCC-supplied limits?</h3>
+<p> Relocate antennas</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-420">
+    <section class="slide-content"><h3 id="how-can-you-make-sure-your-station-stays-in-compliance-with-rf-safety-regulations-">How can you make sure your station stays in compliance with RF safety regulations?</h3>
+<p> By re-evaluating the station whenever an item of equipment is changed</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-421">
+    <section class="slide-content"><h3 id="why-is-duty-cycle-one-of-the-factors-used-to-determine-safe-rf-radiation-exposure-levels-">Why is duty cycle one of the factors used to determine safe RF radiation exposure levels?</h3>
+<p> It affects the average exposure of people to radiation</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-422">
+    <section class="slide-content"><h3 id="what-is-the-definition-of-duty-cycle-during-the-averaging-time-for-rf-exposure-">What is the definition of duty cycle during the averaging time for RF exposure?</h3>
+<p> The percentage of time that a transmitter is transmitting</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-423">
+    <section class="slide-content"><h3 id="how-does-rf-radiation-differ-from-ionizing-radiation-radioactivity-">How does RF radiation differ from ionizing radiation (radioactivity)?</h3>
+<p> RF radiation does not have sufficient energy to cause genetic damage</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-424">
+    <section class="slide-content"><h3 id="if-the-averaging-time-for-exposure-is-6-minutes-how-much-power-density-is-permitted-if-the-signal-is-present-for-3-minutes-and-absent-for-3-minutes-rather-than-being-present-for-the-entire-6-minutes-">If the averaging time for exposure is 6 minutes, how much power density is permitted if the signal is present for 3 minutes and absent for 3 minutes rather than being present for the entire 6 minutes?</h3>
+<p> 2 times as much</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-425">
+    <section class="slide-content"></section>
+  </div>
+
+  <div class="controls">
+    <div class="arrow prev"></div>
+    <div class="arrow next"></div>
+  </div>
+
+
+  <script type="text/javascript">
+    /**
+ * Returns the current page number of the presentation.
+ */
+function currentPosition() {
+  return parseInt(document.querySelector('.slide:not(.hidden)').id.slice(6));
+}
+
+
+/**
+ * Navigates forward n pages
+ * If n is negative, we will navigate in reverse
+ */
+function navigate(n) {
+  var position = currentPosition();
+  var numSlides = document.getElementsByClassName('slide').length;
+
+  /* Positions are 1-indexed, so we need to add and subtract 1 */
+  var nextPosition = (position - 1 + n) % numSlides + 1;
+
+  /* Normalize nextPosition in-case of a negative modulo result */
+  nextPosition = (nextPosition - 1 + numSlides) % numSlides + 1;
+
+  document.getElementById('slide-' + position).classList.add('hidden');
+  document.getElementById('slide-' + nextPosition).classList.remove('hidden');
+
+  updateProgress();
+  updateURL();
+  updateTabIndex();
+}
+
+
+/**
+ * Updates the current URL to include a hashtag of the current page number.
+ */
+function updateURL() {
+  try {
+    window.history.replaceState({} , null, '#' + currentPosition());
+  } catch (e) {
+    window.location.hash = currentPosition();
+  }
+}
+
+
+/**
+ * Sets the progress indicator.
+ */
+function updateProgress() {
+  var progressBar = document.querySelector('.progress-bar');
+
+  if (progressBar !== null) {
+    var numSlides = document.getElementsByClassName('slide').length;
+    var position = currentPosition() - 1;
+    var percent = (numSlides === 1) ? 100 : 100 * position / (numSlides - 1);
+    progressBar.style.width = percent.toString() + '%';
+  }
+}
+
+
+/**
+ * Removes tabindex property from all links on the current slide, sets
+ * tabindex = -1 for all links on other slides. Prevents slides from appearing
+ * out of control.
+ */
+function updateTabIndex() {
+  var allLinks = document.querySelectorAll('.slide a');
+  var position = currentPosition();
+  var currentPageLinks = document.getElementById('slide-' + position).querySelectorAll('a');
+  var i;
+
+  for (i = 0; i < allLinks.length; i++) {
+    allLinks[i].setAttribute('tabindex', -1);
+  }
+
+  for (i = 0; i < currentPageLinks.length; i++) {
+    currentPageLinks[i].removeAttribute('tabindex');
+  }
+}
+
+/**
+ * Determines whether or not we are currently in full screen mode
+ */
+function isFullScreen() {
+  return document.fullscreenElement ||
+         document.mozFullScreenElement ||
+         document.webkitFullscreenElement ||
+         document.msFullscreenElement;
+}
+
+/**
+ * Toggle fullScreen mode on document element.
+ * Works on chrome (>= 15), firefox (>= 9), ie (>= 11), opera(>= 12.1), safari (>= 5).
+ */
+function toggleFullScreen() {
+  /* Convenient renames */
+  var docElem = document.documentElement;
+  var doc = document;
+
+  docElem.requestFullscreen =
+      docElem.requestFullscreen ||
+      docElem.msRequestFullscreen ||
+      docElem.mozRequestFullScreen ||
+      docElem.webkitRequestFullscreen.bind(docElem, Element.ALLOW_KEYBOARD_INPUT);
+
+  doc.exitFullscreen =
+      doc.exitFullscreen ||
+      doc.msExitFullscreen ||
+      doc.mozCancelFullScreen ||
+      doc.webkitExitFullscreen;
+
+  isFullScreen() ? doc.exitFullscreen() : docElem.requestFullscreen();
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Update the tabindex to prevent weird slide transitioning
+  updateTabIndex();
+
+  // If the location hash specifies a page number, go to it.
+  var page = window.location.hash.slice(1);
+  if (page) {
+    navigate(parseInt(page) - 1);
+  }
+
+  document.onkeydown = function (e) {
+    var kc = e.keyCode;
+
+    // left, down, H, J, backspace, PgUp - BACK
+    // up, right, K, L, space, PgDn - FORWARD
+    // enter - FULLSCREEN
+    if (kc === 37 || kc === 40 || kc === 8 || kc === 72 || kc === 74 || kc === 33) {
+      navigate(-1);
+    } else if (kc === 38 || kc === 39 || kc === 32 || kc === 75 || kc === 76 || kc === 34) {
+      navigate(1);
+    } else if (kc === 13) {
+      toggleFullScreen();
+    }
+  };
+
+  if (document.querySelector('.next') && document.querySelector('.prev')) {
+    document.querySelector('.next').onclick = function (e) {
+      e.preventDefault();
+      navigate(1);
+    };
+
+    document.querySelector('.prev').onclick = function (e) {
+      e.preventDefault();
+      navigate(-1);
+    };
+  }
+});
+
+
+  </script>
+</body>
+</html>
