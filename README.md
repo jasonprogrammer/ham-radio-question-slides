@@ -21,10 +21,11 @@ There is a JSON file in this repo (`dist/questions.json`) containing some of the
 
 ## What is the purpose of each file in the repo?
 
-`build.sh` - Commands used to parse the input file (`questions_parse.txt`) and build the markdown (`hamslides.md`) slides.
-`parse_questions.py` - Python code used to parse the questions file.
-`questions_parse.txt` - Hand-modified version of the `questions.txt` file (easier to parse).
-`questions.txt` - Unmodified 2014-2018 question pool text file.
+`build.sh` - Commands used to parse the input file (`questions_parse.txt`) and build the markdown (`hamslides.md`) slides.  
+`parse_questions.py` - Python code used to parse the questions file.  
+`questions_parse.txt` - Hand-modified version of the `questions.txt` file (easier to parse).  
+`questions.txt` - Unmodified 2014-2018 question pool text file.  
+`question_slide.tpl` - A template file to help create each Markdown slide section.
 
 ## Did you just sloppily hack this Python code together?
 
